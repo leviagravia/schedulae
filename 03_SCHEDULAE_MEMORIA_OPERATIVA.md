@@ -1,7 +1,7 @@
 # Schedulae — Memoria Operativa incrementale (MO)
 
 **Documento canonico 3 di 3**  
-**Versione MO:** 2.2  
+**Versione MO:** 2.5  
 **Data di apertura:** 19 agosto 2026  
 **Stato:** ACTIVE / INCREMENTAL  
 **Regola:** questa è l'unica Memoria Operativa di Schedulae. Ogni nuovo evento significativo viene aggiunto qui; non si crea una seconda MO.
@@ -12,9 +12,9 @@
 
 **Project:** Schedulae  
 **Phase:** B00 CLOSED — B01 NOT OPENED  
-**B00 state:** CLOSED / T480 CERTIFIED / UNPUBLISHED  
+**B00 state:** CLOSED / T480 CERTIFIED / PUBLISHED  
 **Repository Schedulae:** `/home/luciano/Projects/schedulae-work`  
-**Git mutation Schedulae:** `git init -b main` only; no add/commit/remote/push  
+**Git mutation Schedulae:** first commit + `origin` + push completed; published commit `4d71e7f0e868d8229b0e05dd2682acc4d887f535`  
 **Candidate attempts:** 0 — B00 è headless/non-candidate  
 **GTK:** NOT OPENED  
 **Next allowed technical boundary:** B01 — standalone library identity / namespace adaptation, only after explicit authorization.
@@ -449,7 +449,7 @@ Prima di usare source esterno al handover, verificare commit/tree pertinente e n
 
 ## L. Next action
 
-**NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480**
+**NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480**
 
 Una volta autorizzato:
 
@@ -977,7 +977,7 @@ Decision:
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — GitHub repository created
 
@@ -1009,7 +1009,7 @@ Governance consequence:
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — Schedulae license frozen: GPL-3.0-or-later
 
@@ -1056,7 +1056,7 @@ B00_STATUS=CLOSED_T480_CERTIFIED_UNPUBLISHED
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — License Adoption R1 pre-delivery self-test harness FAIL and oracle repair
 
@@ -1208,7 +1208,7 @@ The License Adoption R1 line is now ready for the T480. It is not a desktop cand
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — GPL-3.0-or-later License Adoption R1 T480 PASS
 
@@ -1269,7 +1269,7 @@ Decision:
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — First Git publication P1 explicitly authorized
 
@@ -1304,7 +1304,7 @@ Because a Git commit cannot reliably contain its own final SHA without changing 
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — First Publication P1 pre-delivery self-test post-push oracle FAIL
 
@@ -1413,7 +1413,224 @@ P1 is ready for the T480 against the official GitHub remote.
 
 Next action:
 
-`NEXT_ACTION = RUN_FIRST_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+### 2026-08-19 — B00 First Publication P1 T480 PASS / B00 PUBLISHED
+
+User executed the exact First Publication P1 runner on the Lenovo ThinkPad T480 against the official GitHub repository.
+
+Push result:
+
+```text
+To https://github.com/leviagravia/schedulae.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+```
+
+Final P1 evidence:
+
+```text
+PUBLICATION_P1=PASS
+TEST_CASES=74
+TEST_EXECUTIONS=148
+B00_TEST_RESULT=74/74_PASS_X2
+LICENSE=GPL-3.0-or-later
+CANONICAL_DOCUMENTS=3
+SOURCE_TEST_BYTES_UNCHANGED=YES
+BYTECODE_ARTIFACTS=0
+COMMIT=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+TREE=f0a0b49af500c6cefec180af6ec317738ab0919f
+HEAD=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+ORIGIN_MAIN=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+REMOTE_MAIN=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+REMOTE_URL=https://github.com/leviagravia/schedulae.git
+WORKTREE=CLEAN
+B01=NOT_OPENED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B00_FIRST_PUBLICATION_P1_PASS
+```
+
+Publication classification:
+
+```text
+B00_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED
+PUBLICATION_P1=PASS
+PRODUCT_FAIL=NO
+CORE_TEST_MUTATION=NO
+TEST_CASES=74
+TEST_EXECUTIONS=148
+LICENSE=GPL-3.0-or-later
+HEAD_EQUALS_ORIGIN_MAIN=YES
+HEAD_EQUALS_REMOTE_MAIN=YES
+WORKTREE=CLEAN
+B01=NOT_OPENED
+```
+
+Canonical publication authority:
+
+- commit: `4d71e7f0e868d8229b0e05dd2682acc4d887f535`
+- tree: `f0a0b49af500c6cefec180af6ec317738ab0919f`
+- subject: `B00: bootstrap Schedulae bibliography core`
+- remote: `https://github.com/leviagravia/schedulae.git`
+- branch: `main`
+
+Decision:
+
+- B00 is fully CLOSED / T480 CERTIFIED / PUBLISHED.
+- The first public Git history of Schedulae is established.
+- No B01 work was included in the publication.
+- This MO v2.3 records the exact publication receipt externally to the already-published P1 commit.
+- Publishing this receipt back into the repository would require a separate P2 document-only commit/push authorization.
+
+Next action:
+
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+### 2026-08-19 — B01 direct-source pre-implementation audit COMPLETE
+
+Scope:
+
+- exact published B00 source model;
+- GNOME Citations;
+- KBibTeX;
+- JabRef;
+- coBib;
+- Pandoc;
+- Mousepad;
+- novelWriter.
+
+Comparator SHA authority was reverified and matches the historical W97 corpus exactly.
+
+Key architecture verdict:
+
+```text
+B01_DIRECT_SOURCE_AUDIT=PASS
+B01_IMPLEMENTATION=NOT_OPENED
+MATURE_SOURCE_SUFFICIENT=YES
+ADDITIONAL_SOURCE_REQUIRED=NO
+ARCHITECTURAL_REWRITE_REQUIRED=NO
+DATABASE_REQUIRED=NO
+GTK_REQUIRED=NO
+```
+
+Two isolated hostile file probes against the exact B00 seed exposed valid inherited product defects:
+
+```text
+DEFECT_1=CANONICAL_SYMLINK_SAVE_IDENTITY
+SYMLINK_SAVE_STATUS=saved
+LIBRARY_PATH_IS_SYMLINK_AFTER=False
+TARGET_CHANGED=False
+LINK_FILE_CHANGED=True
+
+DEFECT_2=FIXED_TEMP_SYMLINK_OVERWRITE
+TMP_SYMLINK_WRITE=RETURNED_SUCCESS
+VICTIM_CONTENT=SAFE DATA
+```
+
+Both probes used temporary sandbox files only.
+
+Frozen B01 direction:
+
+- package namespace `schedulae`;
+- explicit library path only;
+- no automatic Calamus or Schedulae XDG bibliography;
+- preserve `# Calamus References v1` interoperability;
+- unique same-directory exclusive temp files;
+- canonical selected symlink resolves/fixes target identity rather than replacing the link;
+- reject non-regular canonical targets;
+- recheck stale token immediately before publish;
+- remove Calamus-only Current Document / Source Notes / Reference Sets / Use filters;
+- integrity becomes objective only;
+- keep persist-first controller, semantic key selection, aliases, deterministic Bib modes;
+- no database/singleton/plugin/network/GTK.
+
+The detailed frozen audit contract is incorporated in Canonical Document 2, section 31.
+
+
+### 2026-08-19 — B00 P2 documentation finalizer authorized
+
+The user instructed that B00 be closed correctly while the B01 audit proceeds. This authorizes a final **documentation-only** P2.
+
+Expected parent authority:
+
+```text
+P1_COMMIT=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+P1_TREE=f0a0b49af500c6cefec180af6ec317738ab0919f
+REMOTE=https://github.com/leviagravia/schedulae.git
+```
+
+P2 mutation envelope:
+
+```text
+ALLOWED_CHANGES=
+  01_SCHEDULAE_PRODUCT_AND_GOVERNANCE.md
+  02_SCHEDULAE_TECHNICAL_AUTHORITY_AND_ROADMAP.md
+  03_SCHEDULAE_MEMORIA_OPERATIVA.md
+
+CORE_TEST_MUTATION=FORBIDDEN
+B01_IMPLEMENTATION=FORBIDDEN
+TEST_CASES=74
+TEST_EXECUTIONS=148
+COMMIT_SUBJECT=docs: finalize B00 publication and record B01 audit
+```
+
+P1 remains B00 product-source authority. P2 only synchronizes the exact publication receipt and pre-implementation B01 audit into the public repository.
+
+Next action:
+
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+### 2026-08-19 — B00 P2 documentation finalizer fresh end-to-end requalification PASS
+
+P2 was tested from a new isolated history:
+
+1. fresh exact B00 bootstrap;
+2. fresh GPL-3.0-or-later adoption;
+3. fresh P1 first publication to a new empty local bare Git remote;
+4. P2 against that exact P1 commit/tree.
+
+Observed P2 result:
+
+```text
+B00_P2=PASS
+TEST_CASES=74
+TEST_EXECUTIONS=148
+B00_TEST_RESULT=74/74_PASS_X2
+CANONICAL_DOCUMENTS=3
+SOURCE_TEST_BYTES_UNCHANGED=YES
+ROOT_P1_COMMIT=UNCHANGED_PARENT
+P2_DOCUMENTATION_COMMIT=CREATED
+PUSH_MAIN=PASS
+HEAD_EQUALS_ORIGIN_MAIN=YES
+HEAD_EQUALS_REMOTE_MAIN=YES
+WORKTREE=CLEAN
+B01_AUDIT=COMPLETE
+B01_IMPLEMENTATION=NOT_OPENED
+B00_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED_DOCUMENTATION_FINALIZED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B00_P2_DOCUMENTATION_FINALIZER_PASS
+```
+
+The exact disposable self-test commit SHA is intentionally not project authority.
+
+Classification:
+
+```text
+P2_REQUALIFICATION=PASS
+PRODUCT_FAIL=NO
+HARNESS_FAIL=NO
+CORE_TEST_MUTATION=NO
+USER_GITHUB_MUTATION=NO
+CANDIDATE=NO
+```
+
+P2 is ready for the official T480/GitHub repository.
+
+Next action:
+
+`NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
 ---
 
 ## O. INCORPORAZIONE INTEGRALE — DOCUMENTO CANONICO 1
@@ -1422,9 +1639,9 @@ Next action:
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 1.3  
+**Versione:** 1.5  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / GPL-3.0-or-later ADOPTED / FIRST PUBLICATION P1 AUTHORIZED / B01 NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / GPL-3.0-or-later / B01 AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
 
 ## 1. Identità del prodotto
@@ -1732,8 +1949,29 @@ Alla data di questo documento:
 - licenza pubblica: **GNU GPL v3.0 or later (`GPL-3.0-or-later`)**, adottata e verificata sul T480 il 19 agosto 2026;
 - root `LICENSE`: installato e verificato;
 - source/test B00: byte-identici dopo l'adozione della licenza;
-- first publication P1: **AUTHORIZED** il 19 agosto 2026; commit/origin/push devono essere fail-visible e verificati prima di dichiarare Schedulae pubblicato;
-- B01 non è ancora aperto.
+- first publication P1: **PASS** il 19 agosto 2026;
+- published commit: `4d71e7f0e868d8229b0e05dd2682acc4d887f535`;
+- published tree: `f0a0b49af500c6cefec180af6ec317738ab0919f`;
+- `HEAD = origin/main = remote main` al commit pubblicato;
+- remote: `https://github.com/leviagravia/schedulae.git`;
+- B01 implementation non è ancora aperta; il **pre-implementation audit B01 è COMPLETE** e il relativo contratto tecnico è congelato nel Documento 2.
+
+## 13.1 B01 — principi di prodotto congelati dall'audit
+
+L'audit pre-implementazione B01 non amplia il prodotto: riduce ambiguità ereditate da Calamus.
+
+Decisioni di prodotto:
+
+- una libreria Schedulae è **un file scelto esplicitamente**, non un file posseduto automaticamente sotto XDG;
+- il domain core non deve avere un default path implicito;
+- XDG sarà usato in B02 soltanto per preferenze/app state minimi, non come autorità bibliografica;
+- il formato `# Calamus References v1` resta leggibile/scrivibile come formato di interoperabilità; non viene rinominato per branding;
+- il namespace Python del prodotto diventa `schedulae`;
+- la semantica esclusiva di Calamus (`Current Document`, `Source Notes`, `Reference Sets`, filtri `cited/source-notes/unused`) non appartiene a Schedulae standalone;
+- l'integrità bibliografica deve mostrare solo condizioni oggettivamente verificabili, non giudizi soggettivi come “unused”, assenza di tag o assenza di identificatori;
+- ogni salvataggio della libreria deve essere safe contro file non regolari e collisioni sul temporary path;
+- nessun database, service locator, singleton database, cache authority, background service o rete viene introdotto in B01;
+- B01 resta GTK-free.
 <!-- END VERBATIM DOC1 -->
 
 ---
@@ -1744,9 +1982,9 @@ Alla data di questo documento:
 # Schedulae — Autorità tecnica, architettura, validazione e roadmap
 
 **Documento canonico 2 di 3**  
-**Versione:** 1.3  
+**Versione:** 1.5  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / GPL-3.0-or-later ADOPTED / FIRST PUBLICATION P1 AUTHORIZED / B01 NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / B01 PRE-IMPLEMENTATION AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
 **Scopo:** raccogliere in un'unica autorità tutto ciò che serve per costruire, verificare e far evolvere Schedulae senza dover ricostruire il contesto da Calamus o da documenti storici separati.
 
 ## 1. Source authority
@@ -2391,7 +2629,7 @@ Contratto:
 
 ### B00 — Exact extraction / contract freeze / independent bootstrap
 
-**Stato:** CLOSED / T480 CERTIFIED / UNPUBLISHED — 74/74 PASS, 3 canonical documents, 0 bytecode artifacts, branch `main`, no commit/remote.
+**Stato:** CLOSED / T480 CERTIFIED / PUBLISHED — commit `4d71e7f0e868d8229b0e05dd2682acc4d887f535`, tree `f0a0b49af500c6cefec180af6ec317738ab0919f`; 74/74 PASS, 3 canonical documents, 0 bytecode artifacts; `HEAD = origin/main = remote main`.
 
 Obiettivi:
 
@@ -2498,19 +2736,481 @@ Questi sono debiti **frozen**, non dimenticanze.
 
 ## 30. Next technical action
 
-La prima pubblicazione Git B00 licenziata è stata **autorizzata** il 19 agosto 2026.
+La prima pubblicazione Git B00 licenziata è **PASS** sul T480.
 
-P1 deve:
+Authority pubblicata:
 
-1. verificare prima di ogni mutazione Git: branch unborn `main`, nessun commit, nessun remote locale, remote GitHub raggiungibile e senza heads/tags, `LICENSE` esatto, tre documenti canonici, core/test B00 byte-identici e 74/74 PASS;
-2. installare soltanto le authority canoniche aggiornate e aggiornare `PROJECT_IDENTITY.toml` con licenza/remoto/autorizzazione di pubblicazione;
-3. rieseguire 74/74 dopo le sole modifiche documentali/identity;
-4. eseguire `git add -A`;
-5. creare il primo commit con subject `B00: bootstrap Schedulae bibliography core`;
-6. configurare `origin` su `https://github.com/leviagravia/schedulae.git`;
-7. push di `main`;
-8. verificare `HEAD = origin/main = remote main`, tree e worktree CLEAN;
-9. riportare commit/tree reali alla MO in un successivo finalizer, evitando il problema circolare di incorporare nel commit il proprio SHA.
+```text
+COMMIT=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+TREE=f0a0b49af500c6cefec180af6ec317738ab0919f
+HEAD=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+ORIGIN_MAIN=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+REMOTE_MAIN=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+REMOTE_URL=https://github.com/leviagravia/schedulae.git
+WORKTREE=CLEAN
+```
 
-B01 resta chiuso durante tutta P1.
+B00 è quindi **CLOSED / T480 CERTIFIED / PUBLISHED**.
+
+Il prossimo confine di prodotto è B01, ma resta chiuso fino ad autorizzazione esplicita. Prima di aprirlo, è possibile eseguire un P2 strettamente documentale per pubblicare nel repository questa ricevuta finale; tale P2 richiede una nuova autorizzazione perché comporta un secondo commit/push.
+
+## 31. B01 — Pre-implementation direct-source audit
+
+**Audit status:** COMPLETE  
+**Implementation status:** NOT OPENED  
+**Candidate:** NO — B01 remains headless/GTK-free.  
+**Audit method:** exact Schedulae B00 seed + direct mature source; no web substitute.
+
+### 31.1 Mature-source authority verified
+
+The five bibliography comparators supplied for B01 exactly match the historical W97 revisions:
+
+```text
+GNOME Citations  SHA-256 2ab04a778ef9dc9c4e681ebb006f25adb71e685f038c6f58af679b1c6263f89c
+KBibTeX          SHA-256 f65701b654d0db4b797fcd6ccdca4d244dcc7189ddf894ec409b80d4b11a9ee1
+JabRef           SHA-256 aa62a954f5206a3f300d21de68f0a3027a860e15413aed95ae17db6323f99cfb
+coBib            SHA-256 1d74456354d6be52abe8dbd10193396159bbb84a0a56fb086f437cc849f867a3
+Pandoc           SHA-256 d813fbb68007a697358c515f434ae951ae6d5ee8a4cca66c611acf63bf45083e
+```
+
+Also retained from the B00 handover:
+
+```text
+Mousepad         SHA-256 5d82f89421a0c8a29d4f6f5dcfbf450c2d86c104b25ceb6e8863f75ed496f169
+novelWriter      SHA-256 e44192ee8309862f1d16487c8419731ed1439d33f7e1f59cf1de94f04a8cafb2
+```
+
+No further mature source is required before B01 implementation.
+
+### 31.2 Mature-source findings adopted
+
+#### GNOME Citations
+
+Direct source shows:
+
+- the window owns an explicit `gio::File`;
+- New/Open choose a concrete bibliography file;
+- `open()` loads that file and binds the bibliography to it;
+- save writes back to that explicit file;
+- list filtering and selection are separate model responsibilities;
+- save/open lifecycle is independent from a hidden application-global bibliography path.
+
+**Schedulae constraint:** library identity is explicit-file identity. Do not create an automatic canonical bibliography under XDG.
+
+#### KBibTeX
+
+Direct source shows:
+
+- read-only is a real behavioral state;
+- an edit request in read-only mode is reduced to View;
+- editor values are validated before `apply()`;
+- one invalid field prevents the full apply.
+
+**Schedulae constraint:** malformed/blocked libraries remain operationally read-only; future editors use draft -> validate -> controller commit, never live mutation.
+
+#### JabRef
+
+Direct source `CitationKeyGenerator` consults the complete library database when generating keys and appends deterministic suffixes until the key is unique.
+
+**Schedulae constraint:** keep key generation library-aware and deterministic; primary-key and alias collisions remain blocking and explicit.
+
+#### coBib
+
+Direct source strongly separates commands such as Open/Delete/Export from entry/database objects, which is useful for workflow boundaries. Its `Database` is explicitly a singleton, and its broader plugin/cache/event architecture is not appropriate for Schedulae.
+
+**Schedulae constraint:** adopt command/domain separation where useful; reject singleton database, cache authority and plugin/event expansion.
+
+#### Pandoc
+
+Direct source exposes distinct BibTeX and BibLaTeX reader/writer variants.
+
+**Schedulae constraint:** retain explicit BibTeX vs BibLaTeX mode; never collapse them into one implicit dialect.
+
+### 31.3 Exact B00 standalone seam
+
+The existing constructor already exposes the correct architectural seam:
+
+```python
+MarkdownReferenceStore(path=...)
+```
+
+The B01 problem is therefore not a new storage architecture. It is:
+
+1. remove implicit Calamus path ownership;
+2. make file identity explicit and stable;
+3. repair unsafe atomic-write edge cases;
+4. migrate the Python namespace;
+5. remove Calamus-only semantic projections.
+
+### 31.4 B01 file-safety probes — verified product defects
+
+Two isolated probes were run against the exact B00 seed in temporary directories only.
+
+#### Probe A — canonical library symlink
+
+Setup:
+
+```text
+library.md -> target.md
+```
+
+B00 load follows the symlink through `os.stat()`/`open()`. On save, `atomic_write_utf8()` writes `library.md.tmp` and then calls:
+
+```python
+os.replace(tmp_path, path)
+```
+
+Observed:
+
+```text
+SYMLINK_SAVE_STATUS=saved
+LIBRARY_PATH_IS_SYMLINK_AFTER=False
+TARGET_CHANGED=False
+LINK_FILE_CHANGED=True
+```
+
+The save replaces the **symlink itself** with a new regular file instead of updating the target originally loaded.
+
+Classification:
+
+`VALID PRODUCT FILE-IDENTITY DEFECT`
+
+#### Probe B — fixed temporary path is a symlink
+
+Setup:
+
+```text
+safe.md.tmp -> victim.txt
+victim.txt = DO_NOT_TOUCH
+```
+
+Observed:
+
+```text
+TMP_SYMLINK_WRITE=RETURNED_SUCCESS
+VICTIM_CONTENT=SAFE DATA
+LIB2_EXISTS=True
+TMP_EXISTS=False
+```
+
+Because B00 uses a predictable `<path>.tmp` and opens it normally, a pre-existing temp symlink is followed and the unrelated target is overwritten before the rename.
+
+Classification:
+
+`VALID PRODUCT GUARDED-SAVE DEFECT`
+
+No user file was involved; both probes ran under an isolated temporary directory.
+
+### 31.5 B01 storage/path contract — FROZEN
+
+B01 must implement the smallest safe standalone boundary:
+
+1. `MarkdownReferenceStore` requires an explicit non-empty path.
+2. Remove `default_references_path()` from the domain API.
+3. Do not auto-open `~/.local/share/calamus/research/references.md`.
+4. Do not replace it with an implicit `~/.local/share/schedulae/...` library.
+5. Normalize one explicit selected path once at store construction.
+6. If the selected path is a symlink, resolve/freeze its target so later save updates the file that was actually loaded; do not replace the symlink object.
+7. Existing canonical targets must be regular files; directory/FIFO/socket/device targets fail visibly instead of being treated as “missing”.
+8. Atomic writes must use a **unique same-directory temporary file** created with exclusive semantics (`tempfile.mkstemp` or equivalent), never a predictable `<path>.tmp`.
+9. Flush + `fsync()` the temporary file before publish.
+10. Preserve existing regular-file mode when replacing an existing library; a new private library may use restrictive creation permissions.
+11. Re-check the expected `FileToken` immediately before `os.replace()`; abort and delete the temp file if the library changed during serialization/write.
+12. After successful replace, fsync the parent directory on Linux where supported.
+13. Cleanup of a failed temporary write must never follow a symlink or remove a path not created by the current operation.
+14. Explicit `force=True` remains the only stale-conflict overwrite boundary and must stay user/controller-owned.
+
+This remains a simple file authority; no lock database or hidden journal is introduced.
+
+### 31.6 Residual concurrency policy
+
+A non-cooperating external program can theoretically change a file in the tiny interval after the final token check and before `os.replace()`. B01 must narrow this interval and protect against Schedulae's own temp-path hazards, but it must **not** introduce a database, daemon or complex lock protocol merely to claim impossible filesystem-wide transactional ownership.
+
+A future multi-process Schedulae-specific lock may be considered only if a reproducible same-application race survives B01 hostile tests.
+
+### 31.7 Python namespace migration — FROZEN
+
+Target package:
+
+```text
+schedulae/
+    __init__.py
+    bibliography.py
+    bibliography_search.py
+    bibtex.py
+    bibtex_controller.py
+    bibtex_import_session.py
+    citations.py
+    reference_controller.py
+    reference_store.py
+    references.py
+    related_references.py
+    research_file.py
+```
+
+Rules:
+
+- remove the product runtime files `core/calamus_*.py`;
+- internal imports become `schedulae.*`;
+- do not keep `calamus_*` compatibility shim modules;
+- tests import only `schedulae.*`;
+- rename the historical `test_w97_bibliography_search_coalescer.py` to a product-neutral test filename;
+- product/runtime strings and docstrings use Schedulae or neutral wording;
+- the literal format header `# Calamus References v1` is explicitly exempt because it is interoperability authority, not product branding;
+- preserve 11 domain modules; `schedulae/__init__.py` is package boundary, not a twelfth domain subsystem.
+
+### 31.8 GPL source identity — FROZEN
+
+B01 is the first source-modifying work item. Add:
+
+```python
+# SPDX-License-Identifier: GPL-3.0-or-later
+```
+
+to maintained Python source/test files touched by the migration. No invented copyright holder line is required.
+
+Root `LICENSE` remains the full license authority.
+
+### 31.9 References v1 compatibility — FROZEN
+
+B01 must continue to read and serialize:
+
+```text
+# Calamus References v1
+```
+
+There is **no** `# Schedulae References v1` fork in B01.
+
+Required repair:
+
+B00 currently emits the wrong-header diagnostic literally as:
+
+```text
+Expected library header: {_HEADER}.
+```
+
+B01 must emit the actual compatibility header:
+
+```text
+Expected library header: # Calamus References v1.
+```
+
+The format identity and product identity remain separate.
+
+### 31.10 Standalone bibliography semantics — FROZEN
+
+The B00 `calamus_bibliography.py` contains projections that depend on Calamus authorities which do not exist in standalone Schedulae:
+
+- `Current Document`;
+- `Source Notes`;
+- `Reference Sets`;
+- filter `cited`;
+- filter `source-notes`;
+- filter `unused`;
+- `BibliographyContext.cited_keys`;
+- `source_note_keys`;
+- `set_names_by_key`;
+- delete-impact counts for those authorities;
+- “unused” advisory derived from Calamus context.
+
+They must not survive as fake/empty features.
+
+#### ADOPT
+
+- complete search;
+- Type;
+- Tag;
+- File (`present/missing/unset`);
+- stable sorts;
+- duplicate-identifier detection;
+- Related References;
+- detail fields;
+- local-file status.
+
+#### ADAPT
+
+- `BibliographyContext` becomes a standalone integrity projection with no current-document/source-note/reference-set ownership;
+- delete impact reports only real Schedulae-owned relationships, initially Related References;
+- controller refresh/detail receives only standalone data;
+- citation parser remains a utility for Pandoc citation strings but does not imply that Schedulae owns or scans an academic document.
+
+#### REMOVE
+
+- Use filter;
+- Current Document detail;
+- Source Notes detail;
+- Reference Sets detail;
+- `unused` advisory.
+
+### 31.11 Integrity semantics — objective only
+
+B00 currently marks some records advisory/warning because they lack tags, identifiers, author/year, or are not “used”. Those conditions are not universally bibliographic errors.
+
+B01 integrity must be limited to conditions Schedulae can objectively establish, initially:
+
+- **error:** duplicate normalized DOI/ISBN/ISSN across different records;
+- **warning:** a configured local file path is missing;
+- **related-reference integrity:** self/missing/ambiguous/asymmetric relations according to the existing Related References model;
+- **clean:** no objective issue.
+
+Do not label these conditions as integrity failures merely by policy preference:
+
+- record is not cited;
+- no tag;
+- no DOI/ISBN/ISSN/URL;
+- no author where the reference type may legitimately lack one;
+- no year/date where the reference type may legitimately lack one.
+
+### 31.12 Controller contract
+
+Preserve:
+
+- one controller-owned semantic selected citation key;
+- persist-first mutations;
+- alias -> canonical key resolution;
+- collision blocking;
+- malformed-library read-only;
+- explicit conflict decision: reload / overwrite / cancel;
+- no widget-owned data authority.
+
+Change:
+
+- remove external Calamus `set_context()` ownership;
+- recompute standalone integrity from the library snapshot;
+- error messages say `reference library` / `Schedulae`, not `Calamus`.
+
+### 31.13 BibTeX/BibLaTeX contract in B01
+
+B01 is not a BibTeX feature work item.
+
+Allowed changes:
+
+- namespace/import migration;
+- SPDX;
+- product-neutral wording;
+- behavior-equivalence tests.
+
+Not allowed:
+
+- new parser grammar;
+- new mapping policy;
+- new merge behavior;
+- new export fields;
+- implicit BibTeX/BibLaTeX mode.
+
+B03 remains the UI/lifecycle work item for import/export.
+
+### 31.14 Anti-bloat decisions from the audit
+
+**REJECT B01:**
+
+- database authority;
+- SQLite;
+- singleton library object;
+- application-global hidden bibliography;
+- plugin/event system;
+- network metadata lookup;
+- background indexing;
+- PDF library/attachment manager;
+- lock daemon;
+- general filesystem watcher;
+- shared Calamus/Schedulae core package.
+
+### 31.15 B01 mandatory validation scenarios
+
+The exact numerical test count will be frozen only after the B01 implementation tree exists. The following scenario classes are mandatory in addition to migrated B00 regression coverage:
+
+#### Namespace/identity
+- no `calamus_*` runtime module filenames/imports;
+- `schedulae.*` import closure succeeds in isolation;
+- no runtime dependency on Calamus repo;
+- SPDX present where required;
+- only the compatibility header retains intentional Calamus format identity.
+
+#### Explicit library path
+- missing/empty path rejected;
+- arbitrary absolute path works;
+- legacy Calamus path is never opened implicitly;
+- no Schedulae XDG bibliography default exists.
+
+#### Compatibility
+- Calamus References v1 load;
+- semantic roundtrip;
+- exact header preserved;
+- wrong-header diagnostic repaired;
+- malformed file remains read-only.
+
+#### File safety
+- symlink-selected library updates the resolved original target without replacing the symlink;
+- fixed `.tmp` symlink cannot affect another file;
+- unique temp lifecycle;
+- directory/FIFO/socket destination fails visibly without blocking;
+- external stale change before save blocks;
+- mutation during write-before-replace blocks;
+- writer failure preserves previous library;
+- failed temp cleanup touches only operation-owned temp;
+- successful save remains atomic/persist-first.
+
+#### Standalone semantics
+- no Use filter;
+- no Current Document / Source Notes / Reference Sets detail;
+- no `unused` advisory;
+- duplicate identifier integrity;
+- missing local file warning;
+- Related References integrity preserved;
+- search/type/tag/file/integrity/sort deterministic;
+- semantic selection remains stable across refresh/filter.
+
+#### Regression
+- all still-applicable B00 BibTeX/BibLaTeX, citations, aliases, controller, related-reference and search-coalescer behavior remains PASS after namespace migration.
+
+### 31.16 B01 implementation topology
+
+Recommended implementation order:
+
+1. build a B01 isolated working copy from published B00;
+2. namespace/package migration only;
+3. run migrated regression baseline;
+4. explicit-path identity change;
+5. guarded atomic-write repair and hostile probes;
+6. standalone bibliography semantic cleanup;
+7. wrong-header diagnostic + branding/SPDX cleanup;
+8. full automated regression;
+9. T480 headless certification;
+10. only after PASS: publication.
+
+No GTK work is permitted in B01.
+
+### 31.17 B01 audit verdict
+
+```text
+B01_DIRECT_SOURCE_AUDIT=PASS
+B01_IMPLEMENTATION=NOT_OPENED
+MATURE_SOURCE_SUFFICIENT=YES
+ADDITIONAL_SOURCE_REQUIRED=NO
+VALID_PRODUCT_DEFECTS_FOUND=2
+  - CANONICAL_SYMLINK_SAVE_IDENTITY
+  - FIXED_TEMP_SYMLINK_OVERWRITE
+ARCHITECTURAL_REWRITE_REQUIRED=NO
+NEW_DATABASE_REQUIRED=NO
+GTK_REQUIRED=NO
+NEXT_B01_ACTION=IMPLEMENT_ISOLATED_HEADLESS_TREE_AFTER_AUTHORIZATION
+```
+
+## 32. B00 P2 documentation finalizer
+
+P2 is authorized by the user's instruction to close B00 correctly while recording the B01 audit.
+
+P2 is **documentation-only**:
+
+- parent must be exact P1 commit `4d71e7f0e868d8229b0e05dd2682acc4d887f535`;
+- parent tree must be `f0a0b49af500c6cefec180af6ec317738ab0919f`;
+- only the three canonical Markdown documents may change;
+- core/test source must remain byte-identical to B00 provenance;
+- 74 tests run before and after the document update: 148 executions;
+- no B01 product implementation;
+- commit subject: `docs: finalize B00 publication and record B01 audit`;
+- after push require `HEAD = origin/main = remote main` and CLEAN worktree.
+
+The P1 commit remains the **B00 product-source authority**. P2 is a later documentation/audit finalizer and does not redefine the certified core tree.
 <!-- END VERBATIM DOC2 -->

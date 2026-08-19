@@ -1,9 +1,9 @@
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 1.3  
+**Versione:** 1.5  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / GPL-3.0-or-later ADOPTED / FIRST PUBLICATION P1 AUTHORIZED / B01 NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / GPL-3.0-or-later / B01 AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
 
 ## 1. Identità del prodotto
@@ -311,5 +311,26 @@ Alla data di questo documento:
 - licenza pubblica: **GNU GPL v3.0 or later (`GPL-3.0-or-later`)**, adottata e verificata sul T480 il 19 agosto 2026;
 - root `LICENSE`: installato e verificato;
 - source/test B00: byte-identici dopo l'adozione della licenza;
-- first publication P1: **AUTHORIZED** il 19 agosto 2026; commit/origin/push devono essere fail-visible e verificati prima di dichiarare Schedulae pubblicato;
-- B01 non è ancora aperto.
+- first publication P1: **PASS** il 19 agosto 2026;
+- published commit: `4d71e7f0e868d8229b0e05dd2682acc4d887f535`;
+- published tree: `f0a0b49af500c6cefec180af6ec317738ab0919f`;
+- `HEAD = origin/main = remote main` al commit pubblicato;
+- remote: `https://github.com/leviagravia/schedulae.git`;
+- B01 implementation non è ancora aperta; il **pre-implementation audit B01 è COMPLETE** e il relativo contratto tecnico è congelato nel Documento 2.
+
+## 13.1 B01 — principi di prodotto congelati dall'audit
+
+L'audit pre-implementazione B01 non amplia il prodotto: riduce ambiguità ereditate da Calamus.
+
+Decisioni di prodotto:
+
+- una libreria Schedulae è **un file scelto esplicitamente**, non un file posseduto automaticamente sotto XDG;
+- il domain core non deve avere un default path implicito;
+- XDG sarà usato in B02 soltanto per preferenze/app state minimi, non come autorità bibliografica;
+- il formato `# Calamus References v1` resta leggibile/scrivibile come formato di interoperabilità; non viene rinominato per branding;
+- il namespace Python del prodotto diventa `schedulae`;
+- la semantica esclusiva di Calamus (`Current Document`, `Source Notes`, `Reference Sets`, filtri `cited/source-notes/unused`) non appartiene a Schedulae standalone;
+- l'integrità bibliografica deve mostrare solo condizioni oggettivamente verificabili, non giudizi soggettivi come “unused”, assenza di tag o assenza di identificatori;
+- ogni salvataggio della libreria deve essere safe contro file non regolari e collisioni sul temporary path;
+- nessun database, service locator, singleton database, cache authority, background service o rete viene introdotto in B01;
+- B01 resta GTK-free.
