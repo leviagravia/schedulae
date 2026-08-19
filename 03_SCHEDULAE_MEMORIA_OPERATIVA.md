@@ -1,7 +1,7 @@
 # Schedulae — Memoria Operativa incrementale (MO)
 
 **Documento canonico 3 di 3**  
-**Versione MO:** 2.5  
+**Versione MO:** 3.0  
 **Data di apertura:** 19 agosto 2026  
 **Stato:** ACTIVE / INCREMENTAL  
 **Regola:** questa è l'unica Memoria Operativa di Schedulae. Ogni nuovo evento significativo viene aggiunto qui; non si crea una seconda MO.
@@ -11,13 +11,13 @@
 ## A. Snapshot operativo corrente
 
 **Project:** Schedulae  
-**Phase:** B00 CLOSED — B01 NOT OPENED  
-**B00 state:** CLOSED / T480 CERTIFIED / PUBLISHED  
+**Phase:** B00 CLOSED / DOCUMENTATION FINALIZED — B01 IMPLEMENTATION R1 / T480 PENDING  
+**B00 state:** CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED  
 **Repository Schedulae:** `/home/luciano/Projects/schedulae-work`  
-**Git mutation Schedulae:** first commit + `origin` + push completed; published commit `4d71e7f0e868d8229b0e05dd2682acc4d887f535`  
+**Git mutation Schedulae:** P1 product commit `4d71e7f0e868d8229b0e05dd2682acc4d887f535` + P2 documentation commit `daf6da276b44a490793526d278098fba261c5afe` published; worktree CLEAN  
 **Candidate attempts:** 0 — B00 è headless/non-candidate  
 **GTK:** NOT OPENED  
-**Next allowed technical boundary:** B01 — standalone library identity / namespace adaptation, only after explicit authorization.
+**Next allowed technical boundary:** isolated T480 qualification of B01 Implementation R1; no Git publication yet.
 
 ### Exact source authority
 
@@ -449,7 +449,7 @@ Prima di usare source esterno al handover, verificare commit/tree pertinente e n
 
 ## L. Next action
 
-**NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480**
+**NEXT_ACTION = RUN_B01_IMPLEMENTATION_R1_ON_T480**
 
 Una volta autorizzato:
 
@@ -1631,6 +1631,289 @@ P2 is ready for the official T480/GitHub repository.
 Next action:
 
 `NEXT_ACTION = RUN_B00_P2_DOCUMENTATION_FINALIZER_ON_T480`
+### 2026-08-19 — B00 P2 official T480 PASS / documentation finalized
+
+```text
+B00_P2=PASS
+TEST_CASES=74
+TEST_EXECUTIONS=148
+B00_TEST_RESULT=74/74_PASS_X2
+P1_PRODUCT_COMMIT=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+P1_PRODUCT_TREE=f0a0b49af500c6cefec180af6ec317738ab0919f
+P2_DOCUMENTATION_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+P2_DOCUMENTATION_TREE=8666041a2d5dd83166cbe9a87ae844715eb7fc7c
+HEAD=daf6da276b44a490793526d278098fba261c5afe
+ORIGIN_MAIN=daf6da276b44a490793526d278098fba261c5afe
+REMOTE_MAIN=daf6da276b44a490793526d278098fba261c5afe
+WORKTREE=CLEAN
+CANONICAL_DOCUMENTS=3
+SOURCE_TEST_BYTES_UNCHANGED=YES
+B01_AUDIT=COMPLETE
+B01_IMPLEMENTATION=NOT_OPENED_AT_P2
+B00_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED_DOCUMENTATION_FINALIZED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B00_P2_DOCUMENTATION_FINALIZER_PASS
+```
+
+No P3 is required. P1 is product-source authority; P2 is the final B00 documentation/audit authority.
+
+### 2026-08-19 — B01 implementation explicitly authorized and R1 built
+
+User explicitly authorized B01 implementation after B00 final closure.
+
+Implementation envelope:
+
+```text
+B01_IMPLEMENTATION=AUTHORIZED
+GTK=FORBIDDEN
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+```
+
+A focused mature-source re-audit at the two valid B00 save defects confirmed the repair ownership:
+
+- GNOME Citations: explicit bibliography `gio::File` + replace-content save;
+- KBibTeX: explicit symlink-resolution behavior specifically to avoid replacing the symlink on save; unique temporary-file primitives.
+
+R1 implementation results in sandbox:
+
+```text
+PYTHON_NAMESPACE=schedulae
+DOMAIN_MODULES=11
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+TEST_CASES=101
+B01_SANDBOX_TEST_RESULT=101/101_PASS
+SKIPS=0
+B01_SOURCE_VERIFY=PASS
+B01_T480=PENDING
+```
+
+Hostile defect-repair probes on R1:
+
+```text
+B01_SYMLINK_SAVE_STATUS=saved
+B01_LIBRARY_PATH_IS_SYMLINK_AFTER=TRUE
+B01_TARGET_CHANGED=TRUE
+B01_TMP_SYMLINK_SAVE_STATUS=saved
+B01_VICTIM_UNCHANGED=TRUE
+B01_LEGACY_TMP_SYMLINK_PRESERVED=TRUE
+```
+
+R1 remains isolated and unpublished. The canonical Git repository remains at P2.
+
+`NEXT_ACTION = RUN_B01_IMPLEMENTATION_R1_ON_T480`
+### 2026-08-19 — B01 R1 packaging harness generation FAIL / repair
+
+During construction of the T480 wrapper, the generator shell command used the same heredoc delimiter for an outer generator block and an inner embedded Python block. The outer heredoc therefore terminated early and the remaining text was interpreted by the shell.
+
+Classification:
+
+```text
+PRODUCT_FAIL=NO
+B01_SOURCE_MUTATION_FROM_FAILURE=NO
+CANONICAL_REPO_MUTATION=NO
+HARNESS_PACKAGING_FAIL=YES
+ROOT_CAUSE=NESTED_HEREDOC_DELIMITER_COLLISION
+```
+
+Repair constraint:
+
+**Generator and embedded runtime heredocs must use distinct delimiters.**
+
+Only the packaging harness generator was rebuilt. The already-qualified B01 product source remained unchanged.
+
+### 2026-08-19 — B01 R1 fresh end-to-end packaging requalification PASS
+
+The repaired wrapper was executed from a fresh ZIP extraction against an isolated two-commit canonical Git repository synchronized with a fresh bare remote. Environment overrides substituted disposable commit/tree/remote identities; no user GitHub state was involved.
+
+```text
+B01_PACKAGE_VERIFY=PASS
+CANONICAL_B00_P2_AUTHORITY=PASS
+B01_SOURCE_VERIFY=PASS
+DOMAIN_MODULES=11
+PYTHON_NAMESPACE=schedulae
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+TOTAL_TESTS=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+BYTECODE_ARTIFACTS=0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_IMPLEMENTATION_R1_T480_PASS
+```
+
+The commit shown by the disposable self-test is not project authority and is intentionally omitted.
+
+R1 is ready for target-hardware qualification. The official canonical repository must remain at P2 commit `daf6da276b44a490793526d278098fba261c5afe`, tree `8666041a2d5dd83166cbe9a87ae844715eb7fc7c`, until a later publication step is separately authorized.
+
+`NEXT_ACTION = RUN_B01_IMPLEMENTATION_R1_ON_T480`
+
+### 2026-08-19 — B01 Implementation R1 T480 PASS
+
+User executed the exact B01 Implementation R1 runner on the Lenovo ThinkPad T480.
+
+Result:
+
+```text
+B01_PACKAGE_VERIFY=PASS
+B01_SOURCE_VERIFY=PASS
+TOTAL_TESTS=101
+EXPECTED_TESTS=101
+Ran 101 tests in 0.210s
+OK
+B01_TEST_TOTAL=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+DOMAIN_MODULES=11
+PYTHON_NAMESPACE=schedulae
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+BYTECODE_ARTIFACTS=0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+CANONICAL_HEAD=daf6da276b44a490793526d278098fba261c5afe
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_IMPLEMENTATION_R1_T480_PASS
+```
+
+Classification:
+
+```text
+B01_STATUS=T480_CERTIFIED_PUBLICATION_READY
+PRODUCT_FAIL=NO
+ORACLE_FAIL=NO
+PACKAGING_FAIL=NO
+SOURCE_VERIFY_FAIL=NO
+CANONICAL_REPO_MUTATION=NO
+PUBLICATION=NO
+CANDIDATE=NO
+```
+
+Decision:
+
+- B01 R1 is T480 certified.
+- The exact source manifest is `121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb`.
+- The canonical repository remains on B00 P2 commit `daf6da276b44a490793526d278098fba261c5afe`.
+- B01 is publication ready; commit/push require explicit authorization.
+- B02 remains unopened.
+
+Next action:
+
+`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
+
+### 2026-08-19 — B01 Publication P1 explicitly authorized
+
+The user explicitly authorized publication of the already T480-certified B01 R1 tree.
+
+Authority:
+
+```text
+PARENT_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+PARENT_TREE=8666041a2d5dd83166cbe9a87ae844715eb7fc7c
+CERTIFIED_SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+TEST_CASES=101
+TEST_EXECUTIONS=101
+REMOTE=https://github.com/leviagravia/schedulae.git
+```
+
+Authorized mutations:
+
+```text
+INSTALL_CERTIFIED_B01_TREE=YES
+GIT_ADD=YES
+COMMIT=YES
+PUSH_MAIN=YES
+B02=NO
+GTK=NO
+```
+
+Publication subject:
+
+`B01: establish standalone library identity and safety`
+
+P1 must fail before staging if the canonical parent, remote, source manifest, document cap, license, namespace, dependency boundary, or 101-test gate differs from the frozen authority.
+
+Next action:
+
+`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
+
+### 2026-08-19 — B01 Publication P1 pre-delivery requalification
+
+First disposable publication simulation STOP:
+
+```text
+B01_PUBLICATION_P1=FAIL
+EXIT=34
+ERR=canonical_document_cap
+FINAL_PHASE=B01_PUB_DOCUMENT_CAP_FAIL
+```
+
+Classification:
+
+```text
+PRODUCT_FAIL=NO
+PUBLICATION_RUNNER_FAIL=NO
+INVALID_SELFTEST_FIXTURE=YES
+CAUSE=DISPOSABLE_CANONICAL_REPO_EXPOSED_VIA_SYMLINK
+USER_T480_NOT_AFFECTED=YES
+```
+
+The document-cap gate intentionally operates on the real canonical root path. The first disposable fixture exposed that repository through a symlink, unlike the real T480 topology `/home/luciano/Projects/schedulae-work`.
+
+No product or publication-runner repair was made.
+
+The simulation was rebuilt with a real directory at the canonical root location. Fresh end-to-end result:
+
+```text
+B01_PUBLICATION_P1=PASS
+TEST_CASES=101
+TEST_EXECUTIONS=101
+B01_TEST_RESULT=101/101_PASS
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+COMMIT=CREATED
+PUSH_MAIN=PASS
+HEAD_EQUALS_ORIGIN_MAIN=YES
+HEAD_EQUALS_REMOTE_MAIN=YES
+WORKTREE=CLEAN
+PYTHON_NAMESPACE=schedulae
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+B02=NOT_OPENED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_PUBLICATION_P1_PASS
+```
+
+Disposable commit/tree identities are not project authority.
+
+`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
 ---
 
 ## O. INCORPORAZIONE INTEGRALE — DOCUMENTO CANONICO 1
@@ -1639,9 +1922,9 @@ Next action:
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 1.5  
+**Versione:** 1.7  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / GPL-3.0-or-later / B01 AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
 
 ## 1. Identità del prodotto
@@ -1674,12 +1957,12 @@ Il 19 agosto 2026 è stato eseguito un audit dedicato del nome **Schedulae**. Ne
 
 ### 2.1 Identità tecnica target
 
-Questi valori sono il target di identità dopo la selezione del nome; la migrazione effettiva dei moduli Python appartiene a B01, non a B00.
+B01 Implementation R1 ha applicato il namespace Python del prodotto in copia isolata; l’autorità pubblicata resta B00 finché B01 non supera il T480 e non viene pubblicato.
 
 ```toml
 product_name = "Schedulae"
 repo_slug = "schedulae"
-future_python_namespace = "schedulae"
+python_namespace = "schedulae"
 future_xdg_namespace = "schedulae"
 future_desktop_app_id = "TBD_BEFORE_PACKAGING"
 calamus_source_commit = "c316a3aec8c7fba63969a9fa47726809f2d3f43c"
@@ -1943,9 +2226,9 @@ Alla data di questo documento:
 - GTK nel core: 0;
 - dipendenze Python terze nel core: 0;
 - repository indipendente Schedulae: `/home/luciano/Projects/schedulae-work`, branch `main`;
-- B00: **CLOSED / T480 CERTIFIED / UNPUBLISHED**;
+- B00: **CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED**;
 - remote GitHub pubblico creato: `https://github.com/leviagravia/schedulae`;
-- Git locale: repository inizializzato, nessun commit e nessun remote configurato al momento della closure B00;
+- Git authority corrente: P2 documentation finalizer `daf6da276b44a490793526d278098fba261c5afe`, tree `8666041a2d5dd83166cbe9a87ae844715eb7fc7c`, `HEAD = origin/main = remote main`, worktree CLEAN;
 - licenza pubblica: **GNU GPL v3.0 or later (`GPL-3.0-or-later`)**, adottata e verificata sul T480 il 19 agosto 2026;
 - root `LICENSE`: installato e verificato;
 - source/test B00: byte-identici dopo l'adozione della licenza;
@@ -1954,7 +2237,7 @@ Alla data di questo documento:
 - published tree: `f0a0b49af500c6cefec180af6ec317738ab0919f`;
 - `HEAD = origin/main = remote main` al commit pubblicato;
 - remote: `https://github.com/leviagravia/schedulae.git`;
-- B01 implementation non è ancora aperta; il **pre-implementation audit B01 è COMPLETE** e il relativo contratto tecnico è congelato nel Documento 2.
+- B01 pre-implementation audit: **COMPLETE**; B01 Implementation R1: **BUILT / SANDBOX 101/101 PASS / T480 PENDING**; nessuna mutazione Git B01.
 
 ## 13.1 B01 — principi di prodotto congelati dall'audit
 
@@ -1972,6 +2255,27 @@ Decisioni di prodotto:
 - ogni salvataggio della libreria deve essere safe contro file non regolari e collisioni sul temporary path;
 - nessun database, service locator, singleton database, cache authority, background service o rete viene introdotto in B01;
 - B01 resta GTK-free.
+
+## 13.2 B01 Implementation R1 — stato pre-T480
+
+Il tree R1 applica il contratto congelato senza ampliare il prodotto:
+
+- package `schedulae/` con 11 moduli di dominio e `__init__.py`;
+- nessun modulo/import runtime `calamus_*`;
+- `MarkdownReferenceStore(path)` richiede un path esplicito;
+- nessuna libreria bibliografica automatica sotto XDG;
+- symlink selezionato risolto una volta al target reale, che resta l’autorità di save;
+- temp file univoco, same-directory, exclusive e operation-owned;
+- token stale ricontrollato immediatamente prima di publish;
+- target non regolari rifiutati senza blocco su FIFO/socket;
+- mode esistente preservato; nuovo file privato `0600`;
+- `Current Document`, `Source Notes`, `Reference Sets` e filtro `use` rimossi;
+- integrity solo oggettiva;
+- `# Calamus References v1` preservato come unico identificatore Calamus intenzionale nel runtime;
+- SPDX `GPL-3.0-or-later` applicato ai source/test migrati;
+- zero GTK e zero dipendenze Python terze.
+
+Sandbox qualification: **101/101 PASS**, T480 ancora pending.
 <!-- END VERBATIM DOC1 -->
 
 ---
@@ -1982,9 +2286,9 @@ Decisioni di prodotto:
 # Schedulae — Autorità tecnica, architettura, validazione e roadmap
 
 **Documento canonico 2 di 3**  
-**Versione:** 1.5  
+**Versione:** 1.7  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / B01 PRE-IMPLEMENTATION AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
 **Scopo:** raccogliere in un'unica autorità tutto ciò che serve per costruire, verificare e far evolvere Schedulae senza dover ricostruire il contesto da Calamus o da documenti storici separati.
 
 ## 1. Source authority
@@ -3213,4 +3517,272 @@ P2 is **documentation-only**:
 - after push require `HEAD = origin/main = remote main` and CLEAN worktree.
 
 The P1 commit remains the **B00 product-source authority**. P2 is a later documentation/audit finalizer and does not redefine the certified core tree.
+
+## 33. B00 P2 official closure receipt
+
+```text
+P1_PRODUCT_COMMIT=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+P1_PRODUCT_TREE=f0a0b49af500c6cefec180af6ec317738ab0919f
+P2_DOCUMENTATION_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+P2_DOCUMENTATION_TREE=8666041a2d5dd83166cbe9a87ae844715eb7fc7c
+HEAD=daf6da276b44a490793526d278098fba261c5afe
+ORIGIN_MAIN=daf6da276b44a490793526d278098fba261c5afe
+REMOTE_MAIN=daf6da276b44a490793526d278098fba261c5afe
+WORKTREE=CLEAN
+B00_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED_DOCUMENTATION_FINALIZED
+```
+
+P1 remains the B00 product-source authority; P2 is the documentation/audit finalizer.
+
+## 34. B01 Implementation R1 — isolated headless tree
+
+**Status:** BUILT / SANDBOX QUALIFIED / T480 PENDING / NOT GIT-PUBLISHED  
+**Candidate:** NO  
+**GTK:** NO
+
+### 34.1 Implementation topology
+
+```text
+schedulae/
+  __init__.py
+  bibliography.py
+  bibliography_search.py
+  bibtex.py
+  bibtex_controller.py
+  bibtex_import_session.py
+  citations.py
+  reference_controller.py
+  reference_store.py
+  references.py
+  related_references.py
+  research_file.py
+```
+
+The historical `core/calamus_*.py` runtime topology is removed in R1. Tests import only `schedulae.*`. The historical `test_w97_bibliography_search_coalescer.py` name becomes product-neutral `test_bibliography_search_coalescer.py`.
+
+### 34.2 Focused mature-source repair audit after the B00 file-safety defects
+
+Before implementing the guarded-save repair, direct source was re-read at the failure boundary:
+
+- **GNOME Citations** keeps an explicit `gio::File` as bibliography ownership and saves through `replace_contents_future(..., make_backup=true, ...)`;
+- **KBibTeX** explicitly documents the exact symlink failure mode found in B00 and resolves a selected symlink to its real target before writing, so the user-visible symlink is not replaced;
+- KBibTeX also uses unique `QTemporaryFile` objects for temporary output instead of a predictable fixed `<destination>.tmp` path.
+
+Repair constraint confirmed: preserve explicit file identity, resolve/freeze selected symlink target, and use an operation-owned unique temporary file. No database/lock service is justified.
+
+### 34.3 Guarded save R1
+
+`research_file.atomic_write_utf8()` now:
+
+1. rejects existing symlink/non-regular destinations;
+2. creates a unique same-directory temp with `tempfile.mkstemp`;
+3. tracks temp `(st_dev, st_ino)` so cleanup affects only the operation-owned file;
+4. preserves existing file mode or uses `0600` for a new file;
+5. writes UTF-8, flushes and `fsync()`s the temp;
+6. verifies temp identity;
+7. checks destination type and rechecks `expected_token` immediately before publish;
+8. publishes with `os.replace()`;
+9. fsyncs the parent directory where supported.
+
+`MarkdownReferenceStore` freezes `selected_path` and resolved target `path` at construction. A selected symlink therefore remains a symlink while saves update the target originally opened.
+
+### 34.4 Standalone semantics R1
+
+Removed:
+
+- `BibliographyFilters.use`;
+- cited/source-notes/unused projections;
+- current-document/source-note/reference-set context;
+- corresponding detail fields and delete-impact claims;
+- subjective integrity advisory for no tags/identifier/author/year.
+
+Preserved/adapted:
+
+- query/type/tag/file/integrity/sort projection;
+- related references;
+- duplicate DOI/ISBN/ISSN objective errors;
+- missing configured local file warning;
+- related-reference error/warning severities;
+- persist-first controller and semantic selected key.
+
+### 34.5 Compatibility and identity
+
+```text
+PYTHON_NAMESPACE=schedulae
+DOMAIN_MODULES=11
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+```
+
+The wrong-header diagnostic now expands the actual compatibility header instead of the inherited literal `{_HEADER}` defect.
+
+### 34.6 Sandbox test inventory
+
+B00 had 74 cases. B01 retains the still-applicable regression coverage, replaces the one intentional default-path expectation with explicit-path behavior, and adds focused namespace, guarded-save, standalone-semantics and controller tests.
+
+```text
+TEST_CASES=101
+SANDBOX_RESULT=101/101_PASS
+SKIPS=0
+```
+
+New scenario coverage includes:
+
+- selected library symlink remains intact and target changes;
+- legacy fixed `.tmp` symlink cannot touch a victim file;
+- unique same-dir temp ownership;
+- existing mode preservation/new `0600` mode;
+- directory/FIFO/socket fail visibly without blocking;
+- stale change before save;
+- mutation during write-before-replace;
+- writer failure preserves previous library and cleans owned temp;
+- no default library API/XDG authority;
+- package/import/SPDX closure;
+- Calamus compatibility-header identity only;
+- objective integrity and de-Calamus projections;
+- controller-owned context recomputation and selection stability.
+
+### 34.7 R1 verdict before T480
+
+```text
+B01_IMPLEMENTATION_R1=BUILT
+B01_SANDBOX_TESTS=101/101_PASS
+B01_SOURCE_VERIFY=PASS
+B01_T480=PENDING
+B01_GIT_MUTATION=NO
+B01_PUBLICATION=NO
+CANDIDATE=NO
+```
+
+The next valid action is isolated T480 headless qualification of this exact R1 source. No commit/push is authorized by the implementation step alone.
+
+## 33. B01 Implementation R1 — T480 certification receipt
+
+**Status:** T480 CERTIFIED / PUBLICATION READY  
+**Candidate:** NO  
+**GTK:** NO  
+**Canonical Git mutation:** NO  
+**Publication:** NOT YET PERFORMED
+
+The user executed the exact B01 R1 isolated runner on the Lenovo ThinkPad T480.
+
+Canonical repository authority verified before and after the run:
+
+```text
+CANONICAL_HEAD=daf6da276b44a490793526d278098fba261c5afe
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+```
+
+Source and topology gates:
+
+```text
+B01_PACKAGE_VERIFY=PASS
+B01_SOURCE_VERIFY=PASS
+DOMAIN_MODULES=11
+PYTHON_NAMESPACE=schedulae
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+BYTECODE_ARTIFACTS=0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+```
+
+Exact headless validation:
+
+```text
+TOTAL_TESTS=101
+EXPECTED_TESTS=101
+Ran 101 tests in 0.210s
+OK
+B01_TEST_TOTAL=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+EXIT=0
+ERR=NONE
+FINAL_PHASE=B01_HEADLESS_TESTS_PASS
+```
+
+Final runner marker:
+
+```text
+B01_IMPLEMENTATION_R1=PASS
+B01_TEST_TOTAL=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+DOMAIN_MODULES=11
+PYTHON_NAMESPACE=schedulae
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+BYTECODE_ARTIFACTS=0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+CANONICAL_HEAD=daf6da276b44a490793526d278098fba261c5afe
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_IMPLEMENTATION_R1_T480_PASS
+```
+
+Certification decision:
+
+- B01 R1 satisfies the frozen direct-source audit contract on target hardware.
+- The two inherited guarded-save defects are covered by the new hostile tests and pass.
+- The namespace migration and standalone semantic cleanup are T480 proven.
+- The published B00/P2 repository was not modified by qualification.
+- B01 is now **publication ready** but is not yet published.
+- No B02/GTK work is opened by this certification.
+
+`NEXT_ACTION = B01_PUBLICATION_AUTHORIZATION_PENDING`
+
+## 34. B01 Publication P1 — authorized contract
+
+**Status:** AUTHORIZED / NOT YET RUN ON T480
+
+Exact parent:
+
+```text
+PARENT_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+PARENT_TREE=8666041a2d5dd83166cbe9a87ae844715eb7fc7c
+REMOTE=https://github.com/leviagravia/schedulae.git
+```
+
+Exact certified source authority:
+
+```text
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+TEST_CASES=101
+TEST_EXECUTIONS=101
+```
+
+Publication mutation envelope:
+
+- replace the B00 `core/` runtime with the certified `schedulae/` package;
+- replace B00 tests/tools/provenance with the exact B01 certified versions;
+- install the three updated canonical documents;
+- preserve root `LICENSE` unchanged;
+- update `PROJECT_IDENTITY.toml` only with B01 publication metadata;
+- no GTK or B02 work;
+- run source verification and exactly 101/101 tests in the canonical repository before Git staging;
+- stage the complete B01 transition;
+- commit subject: `B01: establish standalone library identity and safety`;
+- push `main` to `https://github.com/leviagravia/schedulae.git`;
+- require `HEAD = origin/main = remote main` and CLEAN worktree;
+- publication receipt with the real B01 commit/tree is recorded after P1, because the commit cannot contain its own final SHA.
+
+`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
 <!-- END VERBATIM DOC2 -->

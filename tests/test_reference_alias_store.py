@@ -1,7 +1,8 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import unittest
 
-from calamus_reference_store import parse_references_markdown, serialize_references_markdown
-from calamus_references import ReferenceRecord
+from schedulae.reference_store import parse_references_markdown, serialize_references_markdown
+from schedulae.references import ReferenceRecord
 
 
 class ReferenceAliasStoreTests(unittest.TestCase):

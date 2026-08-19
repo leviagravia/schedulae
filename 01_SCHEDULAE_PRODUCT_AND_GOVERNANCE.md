@@ -1,9 +1,9 @@
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 1.5  
+**Versione:** 1.7  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / GPL-3.0-or-later / B01 AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
 
 ## 1. Identità del prodotto
@@ -36,12 +36,12 @@ Il 19 agosto 2026 è stato eseguito un audit dedicato del nome **Schedulae**. Ne
 
 ### 2.1 Identità tecnica target
 
-Questi valori sono il target di identità dopo la selezione del nome; la migrazione effettiva dei moduli Python appartiene a B01, non a B00.
+B01 Implementation R1 ha applicato il namespace Python del prodotto in copia isolata; l’autorità pubblicata resta B00 finché B01 non supera il T480 e non viene pubblicato.
 
 ```toml
 product_name = "Schedulae"
 repo_slug = "schedulae"
-future_python_namespace = "schedulae"
+python_namespace = "schedulae"
 future_xdg_namespace = "schedulae"
 future_desktop_app_id = "TBD_BEFORE_PACKAGING"
 calamus_source_commit = "c316a3aec8c7fba63969a9fa47726809f2d3f43c"
@@ -305,9 +305,9 @@ Alla data di questo documento:
 - GTK nel core: 0;
 - dipendenze Python terze nel core: 0;
 - repository indipendente Schedulae: `/home/luciano/Projects/schedulae-work`, branch `main`;
-- B00: **CLOSED / T480 CERTIFIED / UNPUBLISHED**;
+- B00: **CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED**;
 - remote GitHub pubblico creato: `https://github.com/leviagravia/schedulae`;
-- Git locale: repository inizializzato, nessun commit e nessun remote configurato al momento della closure B00;
+- Git authority corrente: P2 documentation finalizer `daf6da276b44a490793526d278098fba261c5afe`, tree `8666041a2d5dd83166cbe9a87ae844715eb7fc7c`, `HEAD = origin/main = remote main`, worktree CLEAN;
 - licenza pubblica: **GNU GPL v3.0 or later (`GPL-3.0-or-later`)**, adottata e verificata sul T480 il 19 agosto 2026;
 - root `LICENSE`: installato e verificato;
 - source/test B00: byte-identici dopo l'adozione della licenza;
@@ -316,7 +316,7 @@ Alla data di questo documento:
 - published tree: `f0a0b49af500c6cefec180af6ec317738ab0919f`;
 - `HEAD = origin/main = remote main` al commit pubblicato;
 - remote: `https://github.com/leviagravia/schedulae.git`;
-- B01 implementation non è ancora aperta; il **pre-implementation audit B01 è COMPLETE** e il relativo contratto tecnico è congelato nel Documento 2.
+- B01 pre-implementation audit: **COMPLETE**; B01 Implementation R1: **BUILT / SANDBOX 101/101 PASS / T480 PENDING**; nessuna mutazione Git B01.
 
 ## 13.1 B01 — principi di prodotto congelati dall'audit
 
@@ -334,3 +334,24 @@ Decisioni di prodotto:
 - ogni salvataggio della libreria deve essere safe contro file non regolari e collisioni sul temporary path;
 - nessun database, service locator, singleton database, cache authority, background service o rete viene introdotto in B01;
 - B01 resta GTK-free.
+
+## 13.2 B01 Implementation R1 — stato pre-T480
+
+Il tree R1 applica il contratto congelato senza ampliare il prodotto:
+
+- package `schedulae/` con 11 moduli di dominio e `__init__.py`;
+- nessun modulo/import runtime `calamus_*`;
+- `MarkdownReferenceStore(path)` richiede un path esplicito;
+- nessuna libreria bibliografica automatica sotto XDG;
+- symlink selezionato risolto una volta al target reale, che resta l’autorità di save;
+- temp file univoco, same-directory, exclusive e operation-owned;
+- token stale ricontrollato immediatamente prima di publish;
+- target non regolari rifiutati senza blocco su FIFO/socket;
+- mode esistente preservato; nuovo file privato `0600`;
+- `Current Document`, `Source Notes`, `Reference Sets` e filtro `use` rimossi;
+- integrity solo oggettiva;
+- `# Calamus References v1` preservato come unico identificatore Calamus intenzionale nel runtime;
+- SPDX `GPL-3.0-or-later` applicato ai source/test migrati;
+- zero GTK e zero dipendenze Python terze.
+
+Sandbox qualification: **101/101 PASS**, T480 ancora pending.

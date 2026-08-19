@@ -1,14 +1,15 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import unittest
 
-from calamus_related_references import (
+from schedulae.related_references import (
     plan_related_references_update,
     related_keys,
     related_reference_issues,
     replace_related_identity,
     with_related_keys,
 )
-from calamus_reference_store import parse_references_markdown, serialize_references_markdown
-from calamus_references import ReferenceRecord
+from schedulae.reference_store import parse_references_markdown, serialize_references_markdown
+from schedulae.references import ReferenceRecord
 
 
 class RelatedReferencesTests(unittest.TestCase):

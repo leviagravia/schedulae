@@ -1,6 +1,7 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import unittest
 
-from calamus_references import (
+from schedulae.references import (
     ReferenceRecord,
     is_valid_reference_key,
     suggest_reference_key,

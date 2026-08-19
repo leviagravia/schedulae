@@ -1,12 +1,15 @@
-"""GTK-free References controller with persist-first mutations."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""GTK-free Schedulae reference controller with persist-first mutations."""
 from __future__ import annotations
 
 from typing import Any, Callable, Protocol
 
-from calamus_reference_store import ReferenceLibrarySnapshot, ReferenceSaveResult
-from calamus_research_file import FileToken
-from calamus_references import ReferenceRecord
-from calamus_bibliography import BibliographyContext, BibliographyFilters, project_references
+from schedulae.reference_store import ReferenceLibrarySnapshot, ReferenceSaveResult
+from schedulae.research_file import FileToken
+from schedulae.references import ReferenceRecord
+from schedulae.bibliography import (
+    BibliographyContext, BibliographyFilters, build_bibliography_context, project_references,
+)
 
 
 class ReferenceStore(Protocol):
@@ -76,13 +79,14 @@ class ReferenceController:
     def load(self) -> None:
         snapshot = self._store.load()
         self._records = snapshot.records
+        self._context = build_bibliography_context(self._records)
         self._token = snapshot.token
         self._diagnostics = snapshot.diagnostics
         self._loaded = True
         self.refresh()
         if snapshot.diagnostics:
             detail = "\n".join(f"Line {item.line}: {item.message}" for item in snapshot.diagnostics[:8])
-            self._on_error("References file contains blocking problems and is read-only until corrected.\n\n" + detail)
+            self._on_error("Reference library contains blocking problems and is read-only until corrected.\n\n" + detail)
 
     def ensure_loaded(self) -> None:
         if not self._loaded:
@@ -100,19 +104,12 @@ class ReferenceController:
     def selected_key(self) -> str | None:
         return self._selected_key
 
-    def set_context(self, context: BibliographyContext) -> None:
-        if not isinstance(context, BibliographyContext):
-            raise TypeError("context must be BibliographyContext")
-        self._context = context
-        if self._loaded:
-            self.refresh()
 
     def set_filters(self, **changes: str) -> tuple[ReferenceRecord, ...]:
         values = {
             "query": self._filters.query,
             "reference_type": self._filters.reference_type,
             "tag": self._filters.tag,
-            "use": self._filters.use,
             "file": self._filters.file,
             "integrity": self._filters.integrity,
             "sort": self._filters.sort,
@@ -130,8 +127,7 @@ class ReferenceController:
                 "query": query if isinstance(query, str) else "",
                 "reference_type": self._filters.reference_type,
                 "tag": self._filters.tag,
-                "use": self._filters.use,
-                "file": self._filters.file,
+                    "file": self._filters.file,
                 "integrity": self._filters.integrity,
                 "sort": self._filters.sort,
             }
@@ -152,7 +148,6 @@ class ReferenceController:
                 query=query if isinstance(query, str) else "",
                 reference_type=filters.reference_type,
                 tag=filters.tag,
-                use=filters.use,
                 file=filters.file,
                 integrity=filters.integrity,
                 sort=filters.sort,
@@ -249,9 +244,10 @@ class ReferenceController:
             else:
                 return False
         if not result.saved:
-            self._on_error(result.message or "Could not save References.")
+            self._on_error(result.message or "Could not save reference library.")
             return False
         self._records = candidate
+        self._context = build_bibliography_context(self._records)
         self._token = result.token
         self._diagnostics = ()
         self._selected_key = select_key
@@ -262,6 +258,6 @@ class ReferenceController:
         total = len(self._records)
         if self._diagnostics:
             return f"{total} reference(s); file needs correction."
-        if self._filters.query.strip() or any((self._filters.reference_type != "all", self._filters.tag != "all", self._filters.use != "all", self._filters.file != "all", self._filters.integrity != "all")):
+        if self._filters.query.strip() or any((self._filters.reference_type != "all", self._filters.tag != "all", self._filters.file != "all", self._filters.integrity != "all")):
             return f"{visible_count} of {total} reference(s)."
         return f"{total} reference(s)."

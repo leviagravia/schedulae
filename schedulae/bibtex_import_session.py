@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """GTK-free transient decision state for BibTeX/BibLaTeX imports.
 
 The session is a presentation coordinator only. ``references.md`` remains the
@@ -8,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from calamus_bibtex import (
+from schedulae.bibtex import (
     ACTION_SKIP,
     BibImportDecision,
     BibImportItem,

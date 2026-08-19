@@ -1,4 +1,5 @@
-"""GTK-free W87 controller for safe BibTeX/BibLaTeX import and export."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""GTK-free controller for safe BibTeX/BibLaTeX import and export."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -6,7 +7,7 @@ import os
 from pathlib import Path
 from typing import Callable, Protocol, Sequence
 
-from calamus_bibtex import (
+from schedulae.bibtex import (
     BIB_FORMATS,
     BibExportArtifact,
     BibImportDecision,
@@ -17,9 +18,9 @@ from calamus_bibtex import (
     export_references,
     parse_bibliography,
 )
-from calamus_reference_store import ReferenceLibrarySnapshot, ReferenceSaveResult
-from calamus_research_file import FileToken, atomic_write_utf8, file_token
-from calamus_references import ReferenceRecord
+from schedulae.reference_store import ReferenceLibrarySnapshot, ReferenceSaveResult
+from schedulae.research_file import FileToken, atomic_write_utf8, file_token
+from schedulae.references import ReferenceRecord
 
 _MAX_IMPORT_BYTES = 8 * 1024 * 1024
 _MAX_IMPORT_ENTRIES = 5000

@@ -1,9 +1,9 @@
 # Schedulae — Autorità tecnica, architettura, validazione e roadmap
 
 **Documento canonico 2 di 3**  
-**Versione:** 1.5  
+**Versione:** 1.7  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / B01 PRE-IMPLEMENTATION AUDIT COMPLETE / IMPLEMENTATION NOT OPENED  
+**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
 **Scopo:** raccogliere in un'unica autorità tutto ciò che serve per costruire, verificare e far evolvere Schedulae senza dover ricostruire il contesto da Calamus o da documenti storici separati.
 
 ## 1. Source authority
@@ -1232,3 +1232,271 @@ P2 is **documentation-only**:
 - after push require `HEAD = origin/main = remote main` and CLEAN worktree.
 
 The P1 commit remains the **B00 product-source authority**. P2 is a later documentation/audit finalizer and does not redefine the certified core tree.
+
+## 33. B00 P2 official closure receipt
+
+```text
+P1_PRODUCT_COMMIT=4d71e7f0e868d8229b0e05dd2682acc4d887f535
+P1_PRODUCT_TREE=f0a0b49af500c6cefec180af6ec317738ab0919f
+P2_DOCUMENTATION_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+P2_DOCUMENTATION_TREE=8666041a2d5dd83166cbe9a87ae844715eb7fc7c
+HEAD=daf6da276b44a490793526d278098fba261c5afe
+ORIGIN_MAIN=daf6da276b44a490793526d278098fba261c5afe
+REMOTE_MAIN=daf6da276b44a490793526d278098fba261c5afe
+WORKTREE=CLEAN
+B00_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED_DOCUMENTATION_FINALIZED
+```
+
+P1 remains the B00 product-source authority; P2 is the documentation/audit finalizer.
+
+## 34. B01 Implementation R1 — isolated headless tree
+
+**Status:** BUILT / SANDBOX QUALIFIED / T480 PENDING / NOT GIT-PUBLISHED  
+**Candidate:** NO  
+**GTK:** NO
+
+### 34.1 Implementation topology
+
+```text
+schedulae/
+  __init__.py
+  bibliography.py
+  bibliography_search.py
+  bibtex.py
+  bibtex_controller.py
+  bibtex_import_session.py
+  citations.py
+  reference_controller.py
+  reference_store.py
+  references.py
+  related_references.py
+  research_file.py
+```
+
+The historical `core/calamus_*.py` runtime topology is removed in R1. Tests import only `schedulae.*`. The historical `test_w97_bibliography_search_coalescer.py` name becomes product-neutral `test_bibliography_search_coalescer.py`.
+
+### 34.2 Focused mature-source repair audit after the B00 file-safety defects
+
+Before implementing the guarded-save repair, direct source was re-read at the failure boundary:
+
+- **GNOME Citations** keeps an explicit `gio::File` as bibliography ownership and saves through `replace_contents_future(..., make_backup=true, ...)`;
+- **KBibTeX** explicitly documents the exact symlink failure mode found in B00 and resolves a selected symlink to its real target before writing, so the user-visible symlink is not replaced;
+- KBibTeX also uses unique `QTemporaryFile` objects for temporary output instead of a predictable fixed `<destination>.tmp` path.
+
+Repair constraint confirmed: preserve explicit file identity, resolve/freeze selected symlink target, and use an operation-owned unique temporary file. No database/lock service is justified.
+
+### 34.3 Guarded save R1
+
+`research_file.atomic_write_utf8()` now:
+
+1. rejects existing symlink/non-regular destinations;
+2. creates a unique same-directory temp with `tempfile.mkstemp`;
+3. tracks temp `(st_dev, st_ino)` so cleanup affects only the operation-owned file;
+4. preserves existing file mode or uses `0600` for a new file;
+5. writes UTF-8, flushes and `fsync()`s the temp;
+6. verifies temp identity;
+7. checks destination type and rechecks `expected_token` immediately before publish;
+8. publishes with `os.replace()`;
+9. fsyncs the parent directory where supported.
+
+`MarkdownReferenceStore` freezes `selected_path` and resolved target `path` at construction. A selected symlink therefore remains a symlink while saves update the target originally opened.
+
+### 34.4 Standalone semantics R1
+
+Removed:
+
+- `BibliographyFilters.use`;
+- cited/source-notes/unused projections;
+- current-document/source-note/reference-set context;
+- corresponding detail fields and delete-impact claims;
+- subjective integrity advisory for no tags/identifier/author/year.
+
+Preserved/adapted:
+
+- query/type/tag/file/integrity/sort projection;
+- related references;
+- duplicate DOI/ISBN/ISSN objective errors;
+- missing configured local file warning;
+- related-reference error/warning severities;
+- persist-first controller and semantic selected key.
+
+### 34.5 Compatibility and identity
+
+```text
+PYTHON_NAMESPACE=schedulae
+DOMAIN_MODULES=11
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+```
+
+The wrong-header diagnostic now expands the actual compatibility header instead of the inherited literal `{_HEADER}` defect.
+
+### 34.6 Sandbox test inventory
+
+B00 had 74 cases. B01 retains the still-applicable regression coverage, replaces the one intentional default-path expectation with explicit-path behavior, and adds focused namespace, guarded-save, standalone-semantics and controller tests.
+
+```text
+TEST_CASES=101
+SANDBOX_RESULT=101/101_PASS
+SKIPS=0
+```
+
+New scenario coverage includes:
+
+- selected library symlink remains intact and target changes;
+- legacy fixed `.tmp` symlink cannot touch a victim file;
+- unique same-dir temp ownership;
+- existing mode preservation/new `0600` mode;
+- directory/FIFO/socket fail visibly without blocking;
+- stale change before save;
+- mutation during write-before-replace;
+- writer failure preserves previous library and cleans owned temp;
+- no default library API/XDG authority;
+- package/import/SPDX closure;
+- Calamus compatibility-header identity only;
+- objective integrity and de-Calamus projections;
+- controller-owned context recomputation and selection stability.
+
+### 34.7 R1 verdict before T480
+
+```text
+B01_IMPLEMENTATION_R1=BUILT
+B01_SANDBOX_TESTS=101/101_PASS
+B01_SOURCE_VERIFY=PASS
+B01_T480=PENDING
+B01_GIT_MUTATION=NO
+B01_PUBLICATION=NO
+CANDIDATE=NO
+```
+
+The next valid action is isolated T480 headless qualification of this exact R1 source. No commit/push is authorized by the implementation step alone.
+
+## 33. B01 Implementation R1 — T480 certification receipt
+
+**Status:** T480 CERTIFIED / PUBLICATION READY  
+**Candidate:** NO  
+**GTK:** NO  
+**Canonical Git mutation:** NO  
+**Publication:** NOT YET PERFORMED
+
+The user executed the exact B01 R1 isolated runner on the Lenovo ThinkPad T480.
+
+Canonical repository authority verified before and after the run:
+
+```text
+CANONICAL_HEAD=daf6da276b44a490793526d278098fba261c5afe
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+```
+
+Source and topology gates:
+
+```text
+B01_PACKAGE_VERIFY=PASS
+B01_SOURCE_VERIFY=PASS
+DOMAIN_MODULES=11
+PYTHON_NAMESPACE=schedulae
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+BYTECODE_ARTIFACTS=0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+```
+
+Exact headless validation:
+
+```text
+TOTAL_TESTS=101
+EXPECTED_TESTS=101
+Ran 101 tests in 0.210s
+OK
+B01_TEST_TOTAL=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+EXIT=0
+ERR=NONE
+FINAL_PHASE=B01_HEADLESS_TESTS_PASS
+```
+
+Final runner marker:
+
+```text
+B01_IMPLEMENTATION_R1=PASS
+B01_TEST_TOTAL=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+DOMAIN_MODULES=11
+PYTHON_NAMESPACE=schedulae
+CALAMUS_RUNTIME_IMPORTS=0
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+COMPATIBILITY_HEADER=# Calamus References v1
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+BYTECODE_ARTIFACTS=0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+CANONICAL_HEAD=daf6da276b44a490793526d278098fba261c5afe
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_IMPLEMENTATION_R1_T480_PASS
+```
+
+Certification decision:
+
+- B01 R1 satisfies the frozen direct-source audit contract on target hardware.
+- The two inherited guarded-save defects are covered by the new hostile tests and pass.
+- The namespace migration and standalone semantic cleanup are T480 proven.
+- The published B00/P2 repository was not modified by qualification.
+- B01 is now **publication ready** but is not yet published.
+- No B02/GTK work is opened by this certification.
+
+`NEXT_ACTION = B01_PUBLICATION_AUTHORIZATION_PENDING`
+
+## 34. B01 Publication P1 — authorized contract
+
+**Status:** AUTHORIZED / NOT YET RUN ON T480
+
+Exact parent:
+
+```text
+PARENT_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+PARENT_TREE=8666041a2d5dd83166cbe9a87ae844715eb7fc7c
+REMOTE=https://github.com/leviagravia/schedulae.git
+```
+
+Exact certified source authority:
+
+```text
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+TEST_CASES=101
+TEST_EXECUTIONS=101
+```
+
+Publication mutation envelope:
+
+- replace the B00 `core/` runtime with the certified `schedulae/` package;
+- replace B00 tests/tools/provenance with the exact B01 certified versions;
+- install the three updated canonical documents;
+- preserve root `LICENSE` unchanged;
+- update `PROJECT_IDENTITY.toml` only with B01 publication metadata;
+- no GTK or B02 work;
+- run source verification and exactly 101/101 tests in the canonical repository before Git staging;
+- stage the complete B01 transition;
+- commit subject: `B01: establish standalone library identity and safety`;
+- push `main` to `https://github.com/leviagravia/schedulae.git`;
+- require `HEAD = origin/main = remote main` and CLEAN worktree;
+- publication receipt with the real B01 commit/tree is recorded after P1, because the commit cannot contain its own final SHA.
+
+`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`

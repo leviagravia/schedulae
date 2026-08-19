@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """GTK-free coalesced query delivery for the Bibliography Manager.
 
 The UI may receive many text changes while the user types.  This dispatcher

@@ -1,9 +1,10 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import os
 import tempfile
 import unittest
 from pathlib import Path
 
-from calamus_research_file import FileToken, atomic_write_utf8, file_token
+from schedulae.research_file import FileToken, atomic_write_utf8, file_token
 
 
 class ResearchFileTests(unittest.TestCase):

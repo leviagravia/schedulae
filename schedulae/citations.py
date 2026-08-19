@@ -1,11 +1,12 @@
-"""Pandoc citation syntax and cursor lookup for Calamus academic writing."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""Pandoc citation syntax and cursor lookup for Schedulae bibliography workflows."""
 from __future__ import annotations
 
 from dataclasses import dataclass
 import re
 from typing import Any, Iterable
 
-from calamus_references import is_valid_reference_key, normalize_key
+from schedulae.references import is_valid_reference_key, normalize_key
 
 _KEY_BODY = r"[A-Za-z0-9](?:[A-Za-z0-9._:-]*[A-Za-z0-9_])?"
 _CITATION_KEY_RE = re.compile(rf"^(?:{_KEY_BODY})$")

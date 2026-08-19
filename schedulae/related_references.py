@@ -1,4 +1,5 @@
-"""Pure symmetric Related References model and planner for Calamus.
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""Pure symmetric Related References model and planner for Schedulae.
 
 Related References remain transparent fields inside ``references.md``.  This
 module never performs I/O and never infers relationships.  It resolves aliases,
@@ -11,7 +12,7 @@ from dataclasses import dataclass, replace
 import re
 from typing import Iterable
 
-from calamus_references import ReferenceRecord, normalize_key
+from schedulae.references import ReferenceRecord, normalize_key
 
 _RELATED_LABELS = frozenset({"related", "related key", "related keys"})
 _CANONICAL_LABEL = "Related Keys"

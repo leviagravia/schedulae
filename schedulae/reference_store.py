@@ -1,12 +1,13 @@
-"""Canonical UTF-8 Markdown persistence for the global Calamus reference library."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""Canonical UTF-8 Markdown persistence for one explicit Schedulae library."""
 from __future__ import annotations
 
 from dataclasses import dataclass
 import os
 from typing import Any
 
-from calamus_references import ReferenceRecord
-from calamus_research_file import FileToken, atomic_write_utf8, file_token
+from schedulae.references import ReferenceRecord
+from schedulae.research_file import FileConflictError, FileToken, atomic_write_utf8, file_token
 
 _HEADER = "# Calamus References v1"
 _ANNOTATION = "### Annotation"
@@ -83,12 +84,6 @@ class ReferenceSaveResult:
         return self.status == "saved"
 
 
-def default_references_path(home: str | None = None, data_home: str | None = None) -> str:
-    base_home = os.path.expanduser(home or "~")
-    root = data_home or os.environ.get("XDG_DATA_HOME") or os.path.join(base_home, ".local", "share")
-    return os.path.join(root, "calamus", "research", "references.md")
-
-
 def identity_collision_messages(records: tuple[ReferenceRecord, ...] | list[ReferenceRecord]) -> tuple[str, ...]:
     """Return deterministic key/alias collisions across the complete library."""
     owners: dict[str, str] = {}
@@ -142,7 +137,7 @@ def parse_references_markdown(text: Any) -> tuple[tuple[ReferenceRecord, ...], t
     first_content = next(((position + 1, line.strip()) for position, line in enumerate(lines) if line.strip()), None)
     if first_content is not None and first_content[1] != _HEADER:
         diagnostics.append(
-            ReferenceDiagnostic(first_content[0], f"Expected library header: {{_HEADER}}.")
+            ReferenceDiagnostic(first_content[0], f"Expected library header: {_HEADER}.")
         )
     seen: set[str] = set()
     index = 0
@@ -227,13 +222,25 @@ def parse_references_markdown(text: Any) -> tuple[tuple[ReferenceRecord, ...], t
 
 
 class MarkdownReferenceStore:
-    """Load/save the one canonical Markdown library with conflict detection."""
+    """Load/save one explicitly selected Markdown reference library."""
 
-    def __init__(self, path: str | None = None) -> None:
-        self.path = path or default_references_path()
+    def __init__(self, path: str) -> None:
+        if not isinstance(path, str):
+            raise TypeError("reference library path must be a string")
+        selected = path.strip()
+        if not selected:
+            raise ValueError("reference library path is required")
+        self.selected_path = os.path.abspath(os.path.expanduser(selected))
+        # Freeze the current target identity once.  If the user selected a
+        # symlink, later saves update the file that was actually selected/opened
+        # rather than replacing the symlink object.
+        self.path = os.path.realpath(self.selected_path)
 
     def load(self) -> ReferenceLibrarySnapshot:
-        token = file_token(self.path)
+        try:
+            token = file_token(self.path)
+        except OSError as error:
+            return ReferenceLibrarySnapshot((), FileToken(False), (ReferenceDiagnostic(1, str(error)),))
         if not token.exists:
             return ReferenceLibrarySnapshot((), token, ())
         try:
@@ -251,14 +258,22 @@ class MarkdownReferenceStore:
         *,
         force: bool = False,
     ) -> ReferenceSaveResult:
-        current = file_token(self.path)
+        try:
+            current = file_token(self.path)
+        except OSError as error:
+            return ReferenceSaveResult("error", FileToken(False), str(error))
         if not force and current != expected_token:
-            return ReferenceSaveResult("conflict", current, "References file changed outside Calamus.")
+            return ReferenceSaveResult("conflict", current, "Reference library changed outside Schedulae.")
         try:
             text = serialize_references_markdown(records)
         except (TypeError, ValueError) as error:
             return ReferenceSaveResult("error", current, str(error))
         try:
-            return ReferenceSaveResult("saved", atomic_write_utf8(self.path, text))
+            # Even after an explicit force decision, protect against a second
+            # change occurring while this save is being prepared/written.
+            token = atomic_write_utf8(self.path, text, expected_token=current)
+            return ReferenceSaveResult("saved", token)
+        except FileConflictError as error:
+            return ReferenceSaveResult("conflict", error.token, "Reference library changed during save.")
         except OSError as error:
             return ReferenceSaveResult("error", current, str(error))

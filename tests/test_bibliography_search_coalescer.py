@@ -1,9 +1,10 @@
-"""Exact contract tests for W97 explicit coalesced search delivery."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""Exact contract tests for Bibliography explicit coalesced search delivery."""
 from __future__ import annotations
 
 import unittest
 
-from calamus_bibliography_search import CoalescedQueryDispatcher
+from schedulae.bibliography_search import CoalescedQueryDispatcher
 
 
 class FakeScheduler:
@@ -27,7 +28,7 @@ class FakeScheduler:
         return callback()
 
 
-class W97BibliographySearchCoalescerTests(unittest.TestCase):
+class BibliographySearchCoalescerTests(unittest.TestCase):
     def make(self):
         scheduler = FakeScheduler()
         delivered = []

@@ -1,16 +1,16 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import os
 import tempfile
 import unittest
 from pathlib import Path
 
-from calamus_reference_store import (
+from schedulae.reference_store import (
     MarkdownReferenceStore,
-    default_references_path,
     file_token,
     parse_references_markdown,
     serialize_references_markdown,
 )
-from calamus_references import ReferenceRecord
+from schedulae.references import ReferenceRecord
 
 
 class ReferenceMarkdownStoreTests(unittest.TestCase):
@@ -29,9 +29,11 @@ class ReferenceMarkdownStoreTests(unittest.TestCase):
             extra_fields=(("Original Title", "Einführung in das Christentum"),),
         )
 
-    def test_default_path_uses_xdg_data_location(self):
-        path = default_references_path(home="/home/test", data_home="/data")
-        self.assertEqual(path, "/data/calamus/research/references.md")
+    def test_library_path_is_explicit_and_no_default_constructor_exists(self):
+        with self.assertRaises(TypeError):
+            MarkdownReferenceStore()
+        with self.assertRaises(ValueError):
+            MarkdownReferenceStore("   ")
 
     def test_roundtrip_preserves_semantic_fields_annotation_and_unknown_fields(self):
         record = self.sample()

@@ -1,7 +1,8 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Pure decision-state tests for W87 mature-source UI repair."""
 import unittest
 
-from calamus_bibtex import (
+from schedulae.bibtex import (
     ACTION_IMPORT,
     ACTION_MERGE,
     ACTION_NEW_KEY,
@@ -10,8 +11,8 @@ from calamus_bibtex import (
     build_import_preview,
     parse_bibliography,
 )
-from calamus_bibtex_import_session import BibImportSession
-from calamus_references import ReferenceRecord
+from schedulae.bibtex_import_session import BibImportSession
+from schedulae.references import ReferenceRecord
 
 
 class BibImportSessionTests(unittest.TestCase):

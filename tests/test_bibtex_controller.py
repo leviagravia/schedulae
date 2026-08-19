@@ -1,15 +1,16 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import os
 from pathlib import Path
 import tempfile
 import unittest
 
-from calamus_bibtex import (
+from schedulae.bibtex import (
     ACTION_IMPORT, ACTION_MERGE, ACTION_NEW_KEY, BIBLATEX, BIBTEX,
     BibImportDecision,
 )
-from calamus_bibtex_controller import BibtexController
-from calamus_reference_store import MarkdownReferenceStore
-from calamus_references import ReferenceRecord
+from schedulae.bibtex_controller import BibtexController
+from schedulae.reference_store import MarkdownReferenceStore
+from schedulae.references import ReferenceRecord
 
 
 class BibtexControllerTests(unittest.TestCase):

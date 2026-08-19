@@ -1,13 +1,14 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import unittest
 
-from calamus_bibtex import (
+from schedulae.bibtex import (
     ACTION_IMPORT, ACTION_MERGE, ACTION_NEW_KEY, ACTION_REPLACE, ACTION_SKIP,
     BIBLATEX, BIBTEX, COLLISION_ALIAS, COLLISION_INPUT, COLLISION_KEY,
     BibImportDecision, apply_import_decisions, build_import_preview,
     decode_latex, export_references, map_bib_entry, parse_bibliography,
     parse_person_names,
 )
-from calamus_references import ReferenceRecord
+from schedulae.references import ReferenceRecord
 
 
 class BibtexPureTests(unittest.TestCase):

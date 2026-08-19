@@ -1,4 +1,5 @@
-"""Typed bibliographic reference records for Calamus academic writing."""
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""Typed bibliographic reference records for Schedulae bibliography workflows."""
 from __future__ import annotations
 
 from dataclasses import dataclass, field, replace

@@ -1,12 +1,13 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import unittest
 
-from calamus_reference_controller import ReferenceController
-from calamus_reference_store import (
+from schedulae.reference_controller import ReferenceController
+from schedulae.reference_store import (
     FileToken,
     ReferenceLibrarySnapshot,
     ReferenceSaveResult,
 )
-from calamus_references import ReferenceRecord
+from schedulae.references import ReferenceRecord
 
 
 class FakeView:
@@ -165,6 +166,34 @@ class ReferenceControllerTests(unittest.TestCase):
         ])
         self.assertTrue(controller.add(self.record()))
         self.assertTrue(store.saves[-1][2])
+
+    def test_context_is_standalone_and_recomputed_after_persisted_change(self):
+        missing = self.record("a", "A")
+        store = FakeStore((missing,))
+        controller, _, _ = self.make(store)
+        controller.load()
+        self.assertEqual(controller.context.severities("a"), ())
+        self.assertFalse(hasattr(controller, "set_context"))
+        changed = ReferenceRecord(key="a", title="A", doi="10.1/x")
+        other = ReferenceRecord(key="b", title="B", doi="10.1/x")
+        self.assertTrue(controller.replace_records((changed, other), select_key="a"))
+        self.assertEqual(controller.context.severities("a"), ("error",))
+        self.assertEqual(controller.context.severities("b"), ("error",))
+
+    def test_semantic_selection_survives_filter_refresh_when_still_visible(self):
+        store = FakeStore((self.record("alpha2020", "Alpha"), self.record("beta2021", "Beta")))
+        controller, view, _ = self.make(store)
+        controller.load()
+        controller.select_key("beta2021")
+        controller.set_filters(reference_type="book")
+        self.assertEqual(controller.selected_key, "beta2021")
+        self.assertEqual(view.selected, "beta2021")
+
+    def test_unknown_use_filter_is_rejected(self):
+        controller, _, _ = self.make(FakeStore((self.record(),)))
+        controller.load()
+        with self.assertRaisesRegex(ValueError, "unknown bibliography filter"):
+            controller.set_filters(use="unused")
 
 
 if __name__ == "__main__":

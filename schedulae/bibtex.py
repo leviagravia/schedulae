@@ -1,4 +1,5 @@
-"""Pure BibTeX/BibLaTeX parsing, mapping and deterministic export for Calamus.
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""Pure BibTeX/BibLaTeX parsing, mapping and deterministic export for Schedulae.
 
 ``references.md`` remains the only bibliographic authority.  This module builds
 immutable projections and derived text; it performs no file I/O and imports no
@@ -11,7 +12,7 @@ import re
 import unicodedata
 from typing import Iterable, Mapping, Sequence
 
-from calamus_references import ReferenceRecord, suggest_reference_key
+from schedulae.references import ReferenceRecord, suggest_reference_key
 
 BIBTEX = "bibtex"
 BIBLATEX = "biblatex"
@@ -369,7 +370,7 @@ def _parse_value(expression: str, strings: Mapping[str, str]) -> tuple[str, tupl
 
 
 def parse_bibliography(text: str, format: str) -> BibLibrary:
-    """Parse enough of BibTeX/BibLaTeX for safe, preview-first Calamus import.
+    """Parse enough of BibTeX/BibLaTeX for safe, preview-first Schedulae import.
 
     Malformed blocks are diagnosed and retained as non-importable evidence.  A
     malformed block never silently overwrites a prior entry.
@@ -611,7 +612,7 @@ def map_bib_entry(entry: BibEntry, format: str) -> MappedBibEntry:
 
     title = decoded.get("title", "").strip()
     if not title:
-        diagnostics.append(BibDiagnostic(entry.line, 1, "missing-title", f"{entry.key}: title is required by Calamus.", True))
+        diagnostics.append(BibDiagnostic(entry.line, 1, "missing-title", f"{entry.key}: title is required by Schedulae.", True))
         return MappedBibEntry(entry, None, tuple(diagnostics))
 
     authors, author_warnings = parse_person_names(fields.get("author", ""))
@@ -965,10 +966,10 @@ _BIBLATEX_LITERAL_LIST_FIELDS = frozenset({"publisher", "location"})
 
 
 def _literal_list_atom_to_bib(value: str) -> str:
-    """Encode one Calamus scalar as one BibLaTeX literal-list atom.
+    """Encode one Schedulae scalar as one BibLaTeX literal-list atom.
 
     BibLaTeX treats fields such as ``publisher`` and ``location`` as literal
-    lists and uses the token ``and`` as the item separator.  Calamus models
+    lists and uses the token ``and`` as the item separator.  Schedulae models
     both fields as one canonical scalar, so an additional brace group is
     required to keep values such as ``Herder and Herder`` as one item when
     Pandoc/citeproc reads the transient bibliography.
@@ -977,7 +978,7 @@ def _literal_list_atom_to_bib(value: str) -> str:
 
 
 def _person_to_bib(name: str) -> str:
-    """Encode one canonical Calamus display name as a BibTeX name atom.
+    """Encode one canonical Schedulae display name as a BibTeX name atom.
 
     Multi-word names without a comma are treated as corporate authors and kept
     inside a protected group.  The group braces are syntax and must not be
