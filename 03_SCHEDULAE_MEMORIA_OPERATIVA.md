@@ -1,7 +1,7 @@
 # Schedulae — Memoria Operativa incrementale (MO)
 
 **Documento canonico 3 di 3**  
-**Versione MO:** 3.0  
+**Versione MO:** 3.3  
 **Data di apertura:** 19 agosto 2026  
 **Stato:** ACTIVE / INCREMENTAL  
 **Regola:** questa è l'unica Memoria Operativa di Schedulae. Ogni nuovo evento significativo viene aggiunto qui; non si crea una seconda MO.
@@ -1824,7 +1824,7 @@ Decision:
 
 Next action:
 
-`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — B01 Publication P1 explicitly authorized
 
@@ -1860,7 +1860,7 @@ P1 must fail before staging if the canonical parent, remote, source manifest, do
 
 Next action:
 
-`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
 
 ### 2026-08-19 — B01 Publication P1 pre-delivery requalification
 
@@ -1913,7 +1913,118 @@ FINAL_PHASE=SCHEDULAE_B01_PUBLICATION_P1_PASS
 
 Disposable commit/tree identities are not project authority.
 
-`NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+### 2026-08-19 — B01 Publication P1 T480 PASS / B01 PUBLISHED
+
+```text
+Ran 101 tests in 0.208s
+OK
+B01_TEST_TOTAL=101
+B01_TEST_RESULT=101/101_PASS
+SKIPS=0
+PARENT_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+B01_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+B01_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+HEAD=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+ORIGIN_MAIN=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+REMOTE_MAIN=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+REMOTE_URL=https://github.com/leviagravia/schedulae.git
+WORKTREE=CLEAN
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+PYTHON_NAMESPACE=schedulae
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+B02=NOT_OPENED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_PUBLICATION_P1_PASS
+```
+
+Classification:
+
+```text
+B01_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED
+PRODUCT_FAIL=NO
+PUBLICATION_FAIL=NO
+HEAD_EQUALS_ORIGIN_MAIN=YES
+HEAD_EQUALS_REMOTE_MAIN=YES
+WORKTREE=CLEAN
+CANDIDATE=NO
+```
+
+B01 product-source authority is commit `0831d9818c7feb67d2943edf4d8591fa12dd2b14` / tree `bc554be161ec84bbfcee8870afe1dc4e905519d0`. Publishing this exact receipt into Git requires a separate documentation-only P2 authorization. B02 remains unopened.
+
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+### 2026-08-19 — B01 P2 documentation finalizer explicitly authorized
+
+The user explicitly authorized the clean close-out step after B01 P1 publication.
+
+```text
+PARENT_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+PARENT_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+TEST_CASES=101
+TEST_EXECUTIONS=202
+ALLOWED_MUTATION=THREE_CANONICAL_DOCUMENTS_ONLY
+COMMIT_SUBJECT=docs: finalize B01 publication receipt
+B02=NOT_OPENED
+```
+
+P2 preserves the distinction:
+
+- B01 product-source authority: `0831d9818c7feb67d2943edf4d8591fa12dd2b14` / `bc554be161ec84bbfcee8870afe1dc4e905519d0`;
+- P2: later documentation-only receipt synchronization.
+
+No B02 audit or implementation is included in this authorization.
+
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+### 2026-08-19 — B01 P2 pre-delivery requalification
+
+The first disposable self-test fixture could not be constructed because the already-materialized publication staging directory exposed only the three uploaded canonical documents and did not include `.gitignore`/runtime payload files. No P2 runner, product source, or Git repository was executed or mutated by that failed fixture construction.
+
+Classification:
+
+```text
+PRODUCT_FAIL=NO
+RUNNER_FAIL=NO
+FIXTURE_CONSTRUCTION_FAIL=YES
+USER_T480_NOT_AFFECTED=YES
+```
+
+The fixture was rebuilt from the exact B01 Publication P1 ZIP, then P2 was rerun end-to-end against a fresh real-directory canonical repository and a fresh bare remote.
+
+Final requalification:
+
+```text
+B01_P2=PASS
+TEST_CASES=101
+TEST_EXECUTIONS=202
+B01_TEST_RESULT=101/101_PASS_X2
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+NON_DOCUMENT_BYTES_UNCHANGED=YES
+CANONICAL_DOCUMENTS=3
+P2_DOCUMENTATION_COMMIT=CREATED
+PUSH_MAIN=PASS
+HEAD_EQUALS_ORIGIN_MAIN=YES
+HEAD_EQUALS_REMOTE_MAIN=YES
+WORKTREE=CLEAN
+B02=NOT_OPENED
+B01_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED_DOCUMENTATION_FINALIZED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_P2_DOCUMENTATION_FINALIZER_PASS
+```
+
+The disposable requalification commit/tree are not project authority.
+
+Incidental `Spreadsheet runtime warmup failed` diagnostics were emitted by the surrounding Python artifact environment after successful test commands; they did not change the runner return code or any Schedulae gate.
+
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
 ---
 
 ## O. INCORPORAZIONE INTEGRALE — DOCUMENTO CANONICO 1
@@ -1922,7 +2033,7 @@ Disposable commit/tree identities are not project authority.
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 1.7  
+**Versione:** 1.9  
 **Data:** 19 agosto 2026  
 **Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
@@ -2286,7 +2397,7 @@ Sandbox qualification: **101/101 PASS**, T480 ancora pending.
 # Schedulae — Autorità tecnica, architettura, validazione e roadmap
 
 **Documento canonico 2 di 3**  
-**Versione:** 1.7  
+**Versione:** 1.9  
 **Data:** 19 agosto 2026  
 **Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
 **Scopo:** raccogliere in un'unica autorità tutto ciò che serve per costruire, verificare e far evolvere Schedulae senza dover ricostruire il contesto da Calamus o da documenti storici separati.
@@ -3785,4 +3896,65 @@ Publication mutation envelope:
 - publication receipt with the real B01 commit/tree is recorded after P1, because the commit cannot contain its own final SHA.
 
 `NEXT_ACTION = RUN_B01_PUBLICATION_P1_ON_T480`
+
+## 35. B01 Publication P1 — T480 PASS / published authority
+
+```text
+PARENT_COMMIT=daf6da276b44a490793526d278098fba261c5afe
+B01_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+B01_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+HEAD=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+ORIGIN_MAIN=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+REMOTE_MAIN=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+REMOTE_URL=https://github.com/leviagravia/schedulae.git
+WORKTREE=CLEAN
+TEST_CASES=101
+TEST_EXECUTIONS=101
+B01_TEST_RESULT=101/101_PASS
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+PYTHON_NAMESPACE=schedulae
+GTK_IMPORTS=0
+THIRD_PARTY_PYTHON_DEPS=0
+HIDDEN_XDG_LIBRARY_PATH=NO
+CANONICAL_DOCUMENTS=3
+B02=NOT_OPENED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_PUBLICATION_P1_PASS
+```
+
+B01 R1 is **CLOSED / T480 CERTIFIED / PUBLISHED**. Commit `0831d9818c7feb67d2943edf4d8591fa12dd2b14` is the B01 product-source authority; tree `bc554be161ec84bbfcee8870afe1dc4e905519d0` is the exact published B01 product tree. The P1 commit cannot contain its own final SHA, so this receipt remains external to that commit until an optional documentation-only P2 is explicitly authorized.
+
+`NEXT_ACTION = B01_P2_DOCUMENTATION_FINALIZER_OR_B02_AUDIT_AUTHORIZATION_PENDING`
+
+## 36. B01 P2 documentation finalizer — authorized contract
+
+P2 is a **documentation-only** finalizer.
+
+Exact parent authority:
+
+```text
+B01_PRODUCT_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+B01_PRODUCT_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+REMOTE=https://github.com/leviagravia/schedulae.git
+```
+
+Mutation envelope:
+
+- only these three files may change:
+  - `01_SCHEDULAE_PRODUCT_AND_GOVERNANCE.md`
+  - `02_SCHEDULAE_TECHNICAL_AUTHORITY_AND_ROADMAP.md`
+  - `03_SCHEDULAE_MEMORIA_OPERATIVA.md`;
+- `schedulae/`, `tests/`, `tools/`, `provenance/`, `.gitignore`, `LICENSE`, and `PROJECT_IDENTITY.toml` must remain byte-identical to the published B01 product tree;
+- source manifest must still verify;
+- exactly 101 tests before and 101 tests after the document update: **202 test executions**;
+- commit subject: `docs: finalize B01 publication receipt`;
+- push only after the mutation-scope gate passes;
+- after push require `HEAD = origin/main = remote main`, CLEAN worktree, and exact parent `0831d9818c7feb67d2943edf4d8591fa12dd2b14`;
+- B02 remains unopened.
+
+The B01 product-source authority remains commit `0831d9818c7feb67d2943edf4d8591fa12dd2b14` / tree `bc554be161ec84bbfcee8870afe1dc4e905519d0`. P2 only synchronizes documentation and does not redefine the certified product tree.
+
+`NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
 <!-- END VERBATIM DOC2 -->
