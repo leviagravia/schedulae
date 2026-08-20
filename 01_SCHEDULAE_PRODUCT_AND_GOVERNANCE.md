@@ -1,9 +1,9 @@
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 1.9  
+**Versione:** 3.1  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
+**Stato:** AUTHORITATIVE — B00/B01 CLOSED / B02 R1 RETIRED / B02 R2 T480 PROVEN NON-CANDIDATE / CANDIDATE PREFLIGHT PASS / PERF BUDGET FROZEN / B02 CANDIDATE R1 BUILT / T480 PENDING  
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
 
 ## 1. Identità del prodotto
@@ -355,3 +355,251 @@ Il tree R1 applica il contratto congelato senza ampliare il prodotto:
 - zero GTK e zero dipendenze Python terze.
 
 Sandbox qualification: **101/101 PASS**, T480 ancora pending.
+
+## 13.2 B02 — principi di prodotto congelati dall'audit pre-implementazione
+
+B02 introduce la prima shell desktop nativa di Schedulae, ma non deve cambiare il modello di autorità stabilito da B01.
+
+Decisioni congelate:
+
+- stack desktop: **GTK 3 + PyGObject**;
+- una sola `Gtk.Application` e una sola `Gtk.ApplicationWindow` per processo in B02;
+- una sola libreria attiva per finestra/processo;
+- la libreria resta un file esplicito scelto dall'utente; nessun auto-open nascosto, nessuna libreria XDG implicita;
+- i 11 moduli di dominio B01 restano GTK-free;
+- il controller resta proprietario della citation key selezionata semanticamente;
+- la view GTK usa un modello persistente e una selection separata; righe/widget non sono autorità semantica;
+- ricerca con `Gtk.SearchEntry` + coalescing già esistente a 150 ms;
+- layout minimo: menu, ricerca/filtro compatto, lista, detail read-only;
+- niente toolbar;
+- New/Edit/Duplicate/Delete sono workflow espliciti e persist-first;
+- Edit non rinomina citation key o aliases;
+- Duplicate produce un draft con key non collidente e aliases vuoti, poi richiede review;
+- Delete richiede sempre conferma e mostra l'impatto Related References senza cascata silenziosa;
+- libreria malformata resta apribile in read-only con azioni mutative disabilitate;
+- dialog GTK: transient/modal rispetto alla finestra, risultato semantico copiato prima della distruzione, nessun event-loop pumping;
+- import/export BibTeX/BibLaTeX restano B03;
+- packaging/distribuzione e hard performance certification restano B04;
+- nessun database, rete, background indexer, plugin system, PDF manager o multi-window framework viene introdotto in B02.
+
+B02 non è ancora implementato. L'audit autorizzato è concluso; qualsiasi source-writing B02 richiede autorizzazione separata.
+## 13.3 B02 Implementation R1 — stato pre-T480
+
+B02 R1 è stata costruita in copia isolata senza mutare la repository canonica.
+
+```text
+B02_IMPLEMENTATION_R1=BUILT
+B02_HEADLESS_TEST_RESULT=130/130_PASS
+B01_REGRESSION_TESTS=101
+B02_NEW_HEADLESS_TESTS=29
+B02_REAL_GTK_LANES=10_PENDING_T480
+B02_STARTUP_SAMPLES=5_PENDING_T480
+SOURCE_MANIFEST_SHA256=f7eee624e0d646e7033dfbeb82893c196ddcb6ded45000c041e991099811f6d6
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+CANONICAL_REPO_MUTATION=NO
+CANDIDATE=NO
+```
+
+La shell realizzata resta nel contratto B02: GTK3/PyGObject, una finestra, `Gtk.ListStore`/`Gtk.TreeView` con selection separata, controller proprietario della key semantica, New/Edit/Duplicate/Delete persist-first, ricerca coalesced 150 ms, nessuna toolbar e nessun Import/Export UI.
+
+La qualifica real-GTK è deliberatamente pendente perché l'ambiente di costruzione non dispone di PyGObject/GTK3. Il T480 è il target autoritativo per tali lane.
+## 13.4 B02 R1 failure and evidence-based R2 repair
+
+B02 R1 is **RETIRED / NOT QUALIFIED** after the T480 real-GTK `search-filter` lane failed with `delivery_count=0` after three earlier GTK lanes passed. No Candidate attempt was involved.
+
+A direct comparative mature-source audit (Calamus W97, GNOME Citations, Mousepad, KBibTeX, JabRef) established one timing-owner rule: the widget emits the immediate text-change signal and Schedulae alone owns the explicit 150 ms coalescer. R2 therefore changes only the GTK adapter binding from `search-changed` to `changed`; it does not alter the domain coalescer, delay, controller or filtering semantics.
+
+The R1 fixed-time GTK oracle is also retired. R2 waits boundedly for the semantic completion state rather than increasing a guessed sleep. The repaired `search-filter` boundary must pass alone before broad regression/full GTK reruns are allowed.
+
+## 13.4 B02 R2 — T480 non-candidate qualification
+
+B02 R2 has completed the full non-candidate T480 qualification.
+
+Result:
+
+```text
+B02_IMPLEMENTATION_R2=PASS
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_PERF_PROBE=PASS
+STARTUP_SAMPLES=5
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+BYTECODE_ARTIFACTS=0
+```
+
+Observed T480 measurements:
+
+```text
+STARTUP_FIRST_MAPPED_MIN_MS=198.645
+STARTUP_FIRST_MAPPED_MEDIAN_MS=210.746
+STARTUP_FIRST_MAPPED_MAX_MS=222.084
+PROJECTION_1000_MS=53.678
+SEARCH_1000_MS=2.459
+THRESHOLD_GATE=NOT_FROZEN_NONCANDIDATE_MEASUREMENT_ONLY
+```
+
+Classification:
+
+- R1 remains retired after the real-GTK `search-filter` failure.
+- R2 is T480 proven as a non-candidate implementation.
+- Candidate attempts consumed: 0.
+- No publication, commit, or push has occurred for B02.
+- These performance values are observational baseline evidence only; they do not become Candidate thresholds by inference.
+- Candidate authorization must not occur until the performance budget and exact Candidate validation contract are explicitly frozen from this evidence.
+
+B02 manual desktop validation has not yet been performed.
+
+## 13.5 B02 Candidate preflight contract
+
+No Candidate attempt is opened by this step.
+
+Frozen before Candidate:
+
+- exact R2 source authority remains unchanged;
+- automated Candidate order: focused repaired GTK boundary -> 131 headless -> full 10 real-GTK lanes -> performance budget gate;
+- automated validation units: **142**;
+- manual desktop tests: **12**, presented by terminal runner in four batches of three;
+- manual validation is never dumped as a full checklist into chat;
+- performance measurements use the same 1,000-record fixture as R2;
+- a second T480 distribution is required before numeric guardrails are frozen;
+- no feature changes are permitted during preflight/budget freeze.
+
+Performance budget method:
+
+```text
+combined_samples = R2 observed baseline + preflight samples
+MAD = median absolute deviation
+raw_guardrail = max(combined_max * 1.10, combined_median + 6 * MAD)
+
+startup/projection: round upward to 5 ms
+search:             round upward to 0.5 ms
+```
+
+The 10% outer guardband is explicitly a regression-noise allowance on the same T480/fixture, not an optimization target. Numeric thresholds are not authoritative until the T480 preflight completes successfully.
+
+## 13.6 B02 Candidate numeric performance budget — FROZEN
+
+The T480 preflight completed successfully and the previously frozen formula has been applied without modification.
+
+Authoritative Candidate guardrails:
+
+```text
+STARTUP_FIRST_MAPPED_MAX_MS=245.000
+PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MAX_MS=3.000
+```
+
+These values are regression guardrails, not optimization targets.
+
+Candidate contract remains:
+
+```text
+AUTOMATED_VALIDATION_UNITS=142
+  focused repaired search-filter lane=1
+  headless tests=131
+  full real-GTK lanes=10
+
+MANUAL_DESKTOP_TESTS=12
+MANUAL_BATCH_SIZE=3
+```
+
+No Candidate has been built or run. Candidate attempts consumed remain 0.
+
+## 13.7 B02 Candidate R1 — build authority
+
+B02 Candidate R1 is authorized and built from the exact T480-proven R2 product source.
+
+```text
+R2_SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+CANDIDATE_PRODUCT_SOURCE_DELTA=NONE
+STARTUP_FIRST_MAPPED_MAX_MS=245.000
+PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MAX_MS=3.000
+AUTOMATED_VALIDATION_UNITS=142
+MANUAL_DESKTOP_TESTS=12
+MANUAL_BATCH_SIZE=3
+```
+
+Candidate R1 has not yet been executed on the T480. The first Candidate attempt begins only after immutable package/source/canonical preconditions pass and the runner prints `CANDIDATE_ATTEMPT_STARTED=1`.
+
+No Git commit/push occurs during Candidate qualification.
+
+### Candidate R1 pre-delivery harness qualification
+
+Two pre-delivery issues were found and repaired without changing product source:
+
+1. automated runner GTK-runtime precondition exited directly instead of using the fail-visible precondition classifier;
+2. manual fixture records used non-canonical `- Field:` syntax.
+
+Both are packaging/oracle-fixture defects, not product defects. The automated runner now reports precondition failure with `CANDIDATE_ATTEMPT_USED=0`, and manual fixtures parse as valid canonical libraries. Candidate product source remains byte-identical to R2.
+
+A final fresh-package cleanliness check also detected build-environment bytecode created by the fixture audit itself. All `__pycache__`/`.pyc` artifacts were removed before final packaging; no maintained source byte changed.
+
+## 13.8 B02 Candidate R1 — automated T480 PASS / manual pending
+
+```text
+B02_CANDIDATE_R1_AUTOMATED=PASS
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_CANDIDATE_PERF_GATE=PASS
+AUTOMATED_VALIDATION_UNITS=142
+CANDIDATE_ATTEMPT_USED=1
+MANUAL_DESKTOP_VALIDATION=PENDING
+MANUAL_DESKTOP_TESTS=12
+MANUAL_BATCH_SIZE=3
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+BYTECODE_ARTIFACTS=0
+```
+
+Measured Candidate performance:
+
+```text
+startup max = 215.097 ms <= 245.000 ms
+projection-1000 = 52.851 ms <= 65.000 ms
+search-1000 = 2.076 ms <= 3.000 ms
+```
+
+Candidate R1 is not yet desktop certified. The same attempt continues into the frozen 12-test manual desktop validation.
+## 13.9 B02 Candidate R1 — desktop certified / publication authorized
+
+Manual desktop validation completed with explicit user verdicts for all twelve frozen tests.
+
+```text
+B02_CANDIDATE_R1_MANUAL=PASS
+MANUAL_DESKTOP_RESULT=12/12_PASS
+MANUAL_TEST_1=PASS
+MANUAL_TEST_2=PASS
+MANUAL_TEST_3=PASS
+MANUAL_TEST_4=PASS
+MANUAL_TEST_5=PASS
+MANUAL_TEST_6=PASS
+MANUAL_TEST_7=PASS
+MANUAL_TEST_8=PASS
+MANUAL_TEST_9=PASS
+MANUAL_TEST_10=PASS
+MANUAL_TEST_11=PASS
+MANUAL_TEST_12=PASS
+MALFORMED_FILE_BYTES_UNCHANGED=YES
+CANDIDATE_ATTEMPT_USED=1
+B02_CANDIDATE_R1=DESKTOP_CERTIFIED_PUBLICATION_READY
+GIT_COMMIT_PUSH=NO
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B02_CANDIDATE_R1_MANUAL_PASS
+```
+
+The user explicitly confirmed that all twelve test verdicts remain valid and must not be repeated or retroactively downgraded.
+
+Open harness debt for future work only: manual validation instructions from B03 onward must be click-by-click and operationally self-contained; a runner must either launch the application itself or state the second-terminal launch step before asking for a verdict. This debt does not alter B02's 12/12 PASS.
+
+B02 Publication P1 is authorized.
+

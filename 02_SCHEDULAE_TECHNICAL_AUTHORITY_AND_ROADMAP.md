@@ -1,9 +1,9 @@
 # Schedulae — Autorità tecnica, architettura, validazione e roadmap
 
 **Documento canonico 2 di 3**  
-**Versione:** 1.9  
+**Versione:** 3.1  
 **Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00 CLOSED / T480 CERTIFIED / PUBLISHED / DOCUMENTATION FINALIZED / B01 IMPLEMENTATION R1 BUILT / T480 PENDING  
+**Stato:** AUTHORITATIVE — B00/B01 CLOSED / B02 R1 RETIRED / B02 R2 T480 PROVEN NON-CANDIDATE / CANDIDATE PREFLIGHT PASS / PERF BUDGET FROZEN / B02 CANDIDATE R1 BUILT / T480 PENDING  
 **Scopo:** raccogliere in un'unica autorità tutto ciò che serve per costruire, verificare e far evolvere Schedulae senza dover ricostruire il contesto da Calamus o da documenti storici separati.
 
 ## 1. Source authority
@@ -1561,3 +1561,1424 @@ Mutation envelope:
 The B01 product-source authority remains commit `0831d9818c7feb67d2943edf4d8591fa12dd2b14` / tree `bc554be161ec84bbfcee8870afe1dc4e905519d0`. P2 only synchronizes documentation and does not redefine the certified product tree.
 
 `NEXT_ACTION = RUN_B01_P2_DOCUMENTATION_FINALIZER_ON_T480`
+
+## 37. B01 P2 documentation finalizer — T480 PASS / final closure
+
+The user executed the exact B01 P2 documentation finalizer on the Lenovo ThinkPad T480.
+
+```text
+TEST_CASES=101
+TEST_EXECUTIONS=202
+B01_TEST_RESULT=101/101_PASS_X2
+B01_PRODUCT_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+B01_PRODUCT_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+B01_P2_DOCUMENTATION_COMMIT=3e0010a0679e9ba4e541e6fa854186806f83a08a
+B01_P2_DOCUMENTATION_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+ORIGIN_MAIN=3e0010a0679e9ba4e541e6fa854186806f83a08a
+REMOTE_MAIN=3e0010a0679e9ba4e541e6fa854186806f83a08a
+WORKTREE=CLEAN
+SOURCE_MANIFEST_SHA256=121c6409d81f38ba39a2fc20a1babfd38954293f0636c944155b4835983610fb
+NON_DOCUMENT_BYTES_UNCHANGED=YES
+CANONICAL_DOCUMENTS=3
+B02=NOT_OPENED
+B01_STATUS=CLOSED_T480_CERTIFIED_PUBLISHED_DOCUMENTATION_FINALIZED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B01_P2_DOCUMENTATION_FINALIZER_PASS
+```
+
+Authority distinction:
+
+- **B01 product-source authority:** commit `0831d9818c7feb67d2943edf4d8591fa12dd2b14`, tree `bc554be161ec84bbfcee8870afe1dc4e905519d0`;
+- **B01 documentation/audit finalizer:** commit `3e0010a0679e9ba4e541e6fa854186806f83a08a`, tree `a03cb52013e6acef4233b4c5a5b00995d50ac40f`.
+
+No P3 is required. A further documentation-only commit would merely recreate the same self-reference cycle without adding product authority.
+
+B01 is fully closed. B02 remains unopened.
+
+`NEXT_ACTION = B02_AUDIT_AUTHORIZATION_PENDING`
+
+## 38. B02 — Pre-implementation native GTK shell audit
+
+**Audit status:** COMPLETE  
+**Implementation status:** NOT OPENED  
+**Candidate:** NO  
+**Git/product mutation:** NO
+
+Baseline authority:
+
+```text
+B01_PRODUCT_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+B01_PRODUCT_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+CURRENT_DOCUMENTATION_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CURRENT_DOCUMENTATION_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+```
+
+### 38.1 Source authority used
+
+Direct-source audit uses the already-authoritative corpus:
+
+```text
+Mousepad         SHA-256 5d82f89421a0c8a29d4f6f5dcfbf450c2d86c104b25ceb6e8863f75ed496f169
+GNOME Citations  SHA-256 2ab04a778ef9dc9c4e681ebb006f25adb71e685f038c6f58af679b1c6263f89c
+KBibTeX          SHA-256 f65701b654d0db4b797fcd6ccdca4d244dcc7189ddf894ec409b80d4b11a9ee1
+JabRef           SHA-256 aa62a954f5206a3f300d21de68f0a3027a860e15413aed95ae17db6323f99cfb
+coBib            SHA-256 1d74456354d6be52abe8dbd10193396159bbb84a0a56fb086f437cc849f867a3
+Pandoc           SHA-256 d813fbb68007a697358c515f434ae951ae6d5ee8a4cca66c611acf63bf45083e
+novelWriter      SHA-256 e44192ee8309862f1d16487c8419731ed1439d33f7e1f59cf1de94f04a8cafb2
+```
+
+Also re-read: the direct Calamus W97 bibliography lifecycle evidence and the historical reference-dialog source boundary.
+
+No additional mature source is required before B02 implementation.
+
+### 38.2 Exact B01 seam
+
+B01 already has the correct non-GTK ownership split:
+
+- `MarkdownReferenceStore(path)` owns one explicit library file;
+- `ReferenceController` owns records, filters, semantic selected key and persist-first mutations;
+- `ReferenceView` is a narrow protocol;
+- `CoalescedQueryDispatcher` already owns latest-only search delivery;
+- `format_reference_detail()` derives read-only detail;
+- `duplicate_reference()` produces a safe duplicate draft;
+- `build_delete_impact()` reports Schedulae-owned Related References only.
+
+B02 therefore requires a shell adapter, not a domain rewrite.
+
+### 38.3 GTK stack — FROZEN
+
+```text
+GTK_MAJOR=3
+PYTHON_BINDING=PyGObject
+GTK_SOURCEVIEW=NO
+LIBADWAITA=NO
+ELECTRON=NO
+THIRD_PARTY_PYTHON_GUI_FRAMEWORK=NO
+```
+
+Rationale:
+
+- Mousepad provides a mature native GTK3 lifecycle comparator;
+- Schedulae needs only standard widgets;
+- GTK4/libadwaita would add a migration/dependency surface without solving a B02 product need;
+- B01 domain modules must remain importable and testable without GTK.
+
+### 38.4 Application/window lifecycle — FROZEN
+
+B02 uses:
+
+- one `Gtk.Application`;
+- application id target: `io.github.leviagravia.Schedulae`;
+- one `Gtk.ApplicationWindow`;
+- `activate()` presents the existing window instead of constructing duplicates;
+- Open/New Library bind one explicit library path into the active window;
+- dialogs are transient/modal to that window;
+- closing the window disposes pending search sources and releases the controller/view composition.
+
+B02 explicitly rejects:
+
+- server/daemon ownership;
+- multi-window/multi-library framework;
+- automatic reopening of a last library;
+- hidden Recent-file authority;
+- background services.
+
+### 38.5 Library lifecycle — FROZEN
+
+#### Open Library
+
+- native GTK file chooser selects the path;
+- shell constructs `MarkdownReferenceStore(path)` and `ReferenceController`;
+- existing valid library opens read/write;
+- malformed library opens diagnostic/read-only;
+- file identity remains B01 domain authority.
+
+#### New Library
+
+A truthful New Library must create the canonical empty file immediately rather than merely remember a missing path until first record save.
+
+B02 may add one tiny GTK-free creation boundary using the existing serializer/atomic-write rules, for example:
+
+```python
+create_empty_reference_library(path)
+```
+
+or an equivalent store method.
+
+Rules:
+
+- explicit chosen path only;
+- canonical `# Calamus References v1` header;
+- refuse silent overwrite of an existing file;
+- same guarded-write safety as B01;
+- no second library format.
+
+### 38.6 Main-window information architecture — FROZEN
+
+Minimal layout:
+
+```text
+File / Reference / Help
+SearchEntry + compact Filter control
+
++----------------------+---------------------------+
+| Reference list       | Read-only detail          |
+| model-backed         | selected citation key     |
+|                      | bibliographic fields      |
++----------------------+---------------------------+
+| compact status / diagnostics                     |
++--------------------------------------------------+
+```
+
+No toolbar.
+
+Menus in B02:
+
+```text
+File
+  New Library…
+  Open Library…
+  Quit
+
+Reference
+  New…
+  Edit…
+  Duplicate…
+  Delete…
+
+Help
+  About
+```
+
+BibTeX/BibLaTeX Import/Export remain B03.
+
+### 38.7 List/model/selection lifecycle — FROZEN
+
+Use a persistent GTK3 model boundary:
+
+- `Gtk.ListStore`;
+- `Gtk.TreeView`;
+- one persistent `Gtk.TreeSelection`;
+- hidden canonical citation key column;
+- visible compact bibliographic summary columns.
+
+The semantic selected key remains in `ReferenceController`.
+
+Render transaction:
+
+1. block the application selection callback;
+2. update/replace model rows as one transaction;
+3. restore selection by canonical key if still visible;
+4. unblock;
+5. refresh detail once after the model is stable.
+
+Forbidden during render/filter refresh:
+
+- widget row identity as semantic authority;
+- `scroll_to_cell()` as part of correctness;
+- automatic `grab_focus()`;
+- `Gtk.events_pending()` / manual event-loop pumping;
+- callbacks into the controller while the model is only partially rebuilt;
+- destruction/recreation of selected row widgets as the normal filter mechanism.
+
+### 38.8 Search/filter — FROZEN
+
+Search:
+
+- `Gtk.SearchEntry`;
+- existing `CoalescedQueryDispatcher`;
+- existing 150 ms default quiet period;
+- GLib timeout scheduling injected only at the GTK adapter;
+- pending source removed on replacement/dispose;
+- only the latest generation reaches `controller.set_query()`.
+
+Filter control:
+
+One compact popover/menu next to Search may expose the already-existing B01 projections:
+
+- Type;
+- Tag;
+- File (`all/present/missing/unset`);
+- Integrity;
+- Sort.
+
+This is not a toolbar and introduces no new domain filtering logic.
+
+### 38.9 Detail — FROZEN
+
+- read-only;
+- derived from the selected canonical key and `format_reference_detail()`;
+- selectable/copyable text is acceptable;
+- never becomes mutation authority;
+- empty selection has an explicit empty state.
+
+### 38.10 New/Edit dialog — FROZEN
+
+One dialog family creates an immutable `ReferenceRecord` draft.
+
+New:
+
+- editable key;
+- Suggest action;
+- full validation before apply.
+
+Edit:
+
+- primary key is read-only;
+- Suggest disabled;
+- aliases preserved;
+- unknown `extra_fields` preserved;
+- changing fields does not mutate live records.
+
+Validation:
+
+- construct/validate complete draft;
+- any invalid field blocks the whole apply;
+- only after a valid result does the shell call the controller.
+
+No autosave and no live model mutation while the dialog is open.
+
+### 38.11 Duplicate — FROZEN
+
+Workflow:
+
+```text
+selected record
+  -> duplicate_reference(...)
+  -> non-colliding draft key
+  -> aliases cleared
+  -> review in New-like dialog
+  -> valid OK
+  -> controller.add()
+```
+
+Cancel produces zero persistent mutation.
+
+### 38.12 Delete — FROZEN
+
+- confirmation always;
+- use `build_delete_impact()` before delete;
+- show Related References impact when present;
+- no silent cascade;
+- if deletion leaves another record with a missing relation, objective integrity reports it;
+- read-only/malformed library disables Delete.
+
+### 38.13 Read-only and action sensitivity — FROZEN
+
+Mutation actions New/Edit/Duplicate/Delete are disabled when:
+
+- no library is open where appropriate;
+- library is malformed/read-only;
+- Edit/Duplicate/Delete have no valid selection.
+
+Open/New Library and About remain available independently.
+
+### 38.14 Conflict/error UX — FROZEN
+
+The controller's conflict contract remains:
+
+```text
+Reload / Overwrite / Cancel
+```
+
+GTK only presents the choice.
+
+- Overwrite must be explicit;
+- no silent retry;
+- diagnostics are user-visible;
+- malformed load remains read-only rather than being silently rewritten.
+
+### 38.15 Modal lifecycle — FROZEN
+
+Every B02 modal:
+
+- has `transient_for` main window;
+- is modal;
+- returns a typed/semantic result;
+- copies the result before destruction;
+- hides before destroy where the helper controls both;
+- leaves no GLib source owned by the dialog;
+- does not manually pump the GTK event loop.
+
+Real-GTK automated validation uses one named modal workflow per fresh subprocess. Full native-dialog chains remain part of manual desktop validation rather than one monolithic nested-loop test.
+
+### 38.16 Thin-shell topology — target
+
+Expected production shell modules:
+
+```text
+schedulae/gtk_app.py
+schedulae/gtk_window.py
+schedulae/gtk_reference_view.py
+schedulae/gtk_dialogs.py
+schedulae/gtk_modal.py        # only if needed to centralize lifecycle
+schedulae/__main__.py
+```
+
+This is a target topology, not an obligation to create an unnecessary module.
+
+Rules:
+
+- 11 B01 domain modules stay GTK-free;
+- GTK imports occur only in shell modules;
+- no service locator;
+- no event bus;
+- no database;
+- no duplicate bibliography model.
+
+Historical feasibility estimated roughly 700–1,100 production GTK LOC. This remains a comparison signal, not a hard LOC quota; substantial excess requires a scope/bloat audit before Candidate.
+
+### 38.17 Validation topology — FROZEN scenario classes
+
+The exact numerical test count is frozen only after implementation exists.
+
+Mandatory classes:
+
+#### Layer A — B01 domain regression
+- all 101 B01 tests remain PASS.
+
+#### Layer B — shell contract/headless adapter tests
+- controller remains selection owner;
+- model render transaction suppresses semantic callbacks during rebuild;
+- stable selection restoration;
+- query coalescer scheduled/cancelled/disposed correctly;
+- action sensitivity;
+- draft validation and cancel/no-mutation;
+- duplicate review semantics;
+- delete-impact presentation contract;
+- read-only action gating.
+
+#### Layer C — real GTK component lanes, fresh subprocess
+- application/window construct-show-destroy;
+- ListStore/TreeView/TreeSelection render/selection;
+- search/filter transitions;
+- New dialog;
+- Edit dialog;
+- Duplicate dialog;
+- Delete confirmation;
+- conflict dialog;
+- malformed/read-only presentation.
+
+Each lane runs with fatal GTK criticals enabled where practical.
+
+#### Layer D — True Application lane
+- real `Gtk.Application`;
+- disposable explicit library;
+- map main window;
+- load records;
+- select key -> detail;
+- repeated search/filter transitions;
+- mutation workflow through controller;
+- clean quit;
+- no surviving GLib source;
+- no GTK critical.
+
+#### Layer E — startup/responsiveness probe
+Before fixing hard thresholds, obtain T480 non-candidate baseline measurements:
+
+- process start -> first mapped usable window, repeated fresh processes;
+- moderate reference library projection/search;
+- search coalescing delivery count;
+- no synchronous viewport/focus work in render.
+
+Candidate thresholds are derived from measured T480 evidence, not guessed in the audit.
+
+#### Layer F — manual desktop
+At minimum:
+
+- New Library;
+- Open Library;
+- search + each compact filter class;
+- selection/detail;
+- New;
+- Edit with immutable citation key;
+- Duplicate review/cancel/save;
+- Delete confirmation/impact;
+- malformed library read-only;
+- stale conflict Reload/Overwrite/Cancel;
+- About/Quit;
+- visual check under light/system theme as applicable.
+
+### 38.18 B02 anti-bloat matrix
+
+**ADOPT**
+
+- native GTK application/window lifecycle;
+- explicit file ownership;
+- persistent list model + separate selection;
+- controller-owned semantic key;
+- search coalescing;
+- draft/validate/commit;
+- action sensitivity;
+- native modal ownership.
+
+**ADAPT**
+
+- GNOME Citations list/filter/detail architecture to GTK3;
+- KBibTeX validation/read-only discipline to immutable Python drafts;
+- Calamus W97 lifecycle lessons without copying its destructive row-rebuild mechanism;
+- Calamus reference dialog field coverage without Calamus-only workflow semantics.
+
+**REJECT B02**
+
+- toolbar;
+- multi-window;
+- tabs;
+- database;
+- plugin system;
+- network metadata lookup;
+- PDF viewer/manager;
+- file watcher/background indexer;
+- automatic last-library reopen;
+- BibTeX import/export UI;
+- GTK4/libadwaita migration;
+- custom model framework where `Gtk.ListStore` suffices.
+
+**DEFER**
+
+- import/export UI -> B03;
+- large-library hard certification -> B04;
+- desktop packaging/icons/installer polish -> B04;
+- Recent Files unless separately justified by later evidence.
+
+### 38.19 Audit verdict
+
+```text
+B02_DIRECT_SOURCE_AUDIT=PASS
+B02_IMPLEMENTATION=NOT_OPENED
+B02_CANDIDATE=NO
+PRODUCT_SOURCE_MUTATION=NO
+GIT_MUTATION=NO
+MATURE_SOURCE_SUFFICIENT=YES
+ADDITIONAL_SOURCE_REQUIRED=NO
+GTK_STACK=GTK3_PYGOBJECT
+WINDOW_MODEL=SINGLE_APPLICATION_SINGLE_WINDOW
+DOMAIN_GTK_IMPORTS=0
+LIST_MODEL=GTK_LISTSTORE_TREEVIEW
+SEMANTIC_SELECTION_OWNER=REFERENCE_CONTROLLER
+SEARCH_COALESCER_MS=150
+TOOLBAR=NO
+IMPORT_EXPORT_UI=B03
+PACKAGING=B04
+NEXT_ACTION=B02_IMPLEMENTATION_AUTHORIZATION_PENDING
+```
+## 39. B02 Implementation R1 — isolated build / pre-T480 qualification
+
+**Implementation:** BUILT  
+**Candidate:** NO  
+**Canonical Git mutation:** NO  
+**Real-GTK target qualification:** PENDING T480
+
+Baseline authority:
+
+```text
+B01_PRODUCT_COMMIT=0831d9818c7feb67d2943edf4d8591fa12dd2b14
+B01_PRODUCT_TREE=bc554be161ec84bbfcee8870afe1dc4e905519d0
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+```
+
+### 39.1 Implemented production delta
+
+Five thin shell files were added:
+
+```text
+schedulae/gtk_app.py
+schedulae/gtk_window.py
+schedulae/gtk_reference_view.py
+schedulae/gtk_dialogs.py
+schedulae/__main__.py
+```
+
+GTK shell physical LOC: **1,045**. This is inside the audit feasibility signal (~700–1,100 LOC) and does not create a new domain subsystem.
+
+Two narrow GTK-free additions were made:
+
+- `create_empty_reference_library(path)` creates a canonical empty `# Calamus References v1` file immediately, refuses any pre-existing filesystem object, and uses the B01 guarded atomic writer;
+- `ReferenceController.read_only` / `diagnostics` expose already-owned load state, and the optional `set_context()` view seam lets the GTK projection render objective integrity without owning it.
+
+### 39.2 Shell behavior implemented
+
+- GTK3 + PyGObject only;
+- application id `io.github.leviagravia.Schedulae`;
+- one `Gtk.Application` + one `Gtk.ApplicationWindow`;
+- explicit New/Open Library only;
+- File / Reference / Help menu;
+- SearchEntry + compact filter popover;
+- persistent `Gtk.ListStore` + `Gtk.TreeView` + `Gtk.TreeSelection`;
+- semantic key stays in `ReferenceController`;
+- read-only detail pane;
+- New/Edit validated immutable draft dialog;
+- immutable key on Edit;
+- Duplicate -> generated non-colliding draft -> mandatory review;
+- Delete confirmation + Related References impact, no silent cascade;
+- conflict Reload / Overwrite / Cancel;
+- malformed library visible/read-only;
+- no toolbar, no Import/Export UI, no database, no network, no background indexer.
+
+### 39.3 First regression gate FAIL — stale B01 oracle
+
+Initial Layer-A run:
+
+```text
+B01_TEST_RESULT=100/101_NOT_FULL_PASS
+FAIL=test_b01_identity.B01IdentityTests.test_package_contains_eleven_domain_modules_and_no_calamus_runtime_module
+OBSERVED_PACKAGE_PY_MODULES=16
+EXPECTED_BY_STALE_ORACLE=11
+```
+
+Classification:
+
+```text
+PRODUCT_FAIL=NO
+ORACLE_FAIL=YES
+CAUSE=B01_TEST_COUNTED_ALL_PACKAGE_PY_FILES_AS_DOMAIN_MODULES
+```
+
+Before repair, failure-specific re-audit returned to the frozen B02 topology and mature Mousepad source. B02 explicitly requires 11 B01 domain modules **plus** shell modules; Mousepad likewise separates `MousepadApplication` (`GTK_TYPE_APPLICATION`) and `MousepadWindow` (`GTK_TYPE_APPLICATION_WINDOW`).
+
+Minimal oracle repair: the B01 identity test now names the exact 11 domain modules and separately continues to forbid any `calamus_*` runtime file. It does not forbid the B02 shell modules mandated by the audit.
+
+Post-repair Layer A:
+
+```text
+B01_TEST_RESULT=101/101_PASS
+```
+
+### 39.4 Source verifier tooling FAIL
+
+A later static source gate initially failed because its handwritten stdlib allowlist omitted Python's `importlib`, used by one B02 headless test.
+
+```text
+PRODUCT_FAIL=NO
+SOURCE_FAIL=NO
+TOOLING_VERIFIER_FAIL=YES
+CAUSE=INCOMPLETE_STDLIB_ALLOWLIST
+```
+
+Repair was verifier-only: use `sys.stdlib_module_names` as Python stdlib authority, plus explicit `schedulae` and `gi` allowances.
+
+Final source gate:
+
+```text
+B02_SOURCE_VERIFY=PASS
+DOMAIN_MODULES=11
+SHELL_MODULES=5
+DOMAIN_GTK_IMPORTS=0
+SHELL_GTK_STACK=GTK3_PYGOBJECT
+INTENTIONAL_CALAMUS_RUNTIME_STRINGS=1
+APPLICATION_ID=io.github.leviagravia.Schedulae
+THIRD_PARTY_RUNTIME_DEPS=PyGObject_ONLY
+TOOLBAR=NO
+IMPORT_EXPORT_UI=NO
+```
+
+### 39.5 Frozen headless count
+
+```text
+TOTAL_HEADLESS_TESTS=130
+B01_REGRESSION_TESTS=101
+B02_NEW_HEADLESS_TESTS=29
+B02_HEADLESS_TEST_RESULT=130/130_PASS
+SKIPS=0
+```
+
+Source manifest:
+
+```text
+SOURCE_MANIFEST_SHA256=f7eee624e0d646e7033dfbeb82893c196ddcb6ded45000c041e991099811f6d6
+```
+
+### 39.6 Real-GTK topology prepared for T480
+
+Ten fresh-process lanes:
+
+1. view-selection;
+2. window-shell;
+3. library-open;
+4. search-filter;
+5. new-dialog;
+6. edit-duplicate-dialog;
+7. delete-dialog;
+8. conflict-dialog;
+9. malformed-read-only;
+10. true-application.
+
+Each lane is executed in a separate Python process with `G_DEBUG=fatal-criticals`.
+
+### 39.7 Non-candidate performance probe prepared
+
+Before any candidate threshold is frozen, T480 measures:
+
+- 5 fresh-process start -> first mapped window samples;
+- 1,000-record projection time;
+- 1,000-record search projection time.
+
+No performance threshold is imposed in R1; measurements are evidence for the later Candidate gate.
+
+### 39.8 Build-environment limitation
+
+The construction container has no `gi` / PyGObject GTK3 runtime. Therefore:
+
+- source syntax/static gates: PASS;
+- headless behavior: 130/130 PASS;
+- real-GTK execution: **not claimed locally**;
+- T480 real-GTK qualification is mandatory before R1 can be called T480-proven.
+
+### 39.9 R1 pre-T480 verdict
+
+```text
+B02_IMPLEMENTATION_R1=BUILT
+B02_SOURCE_VERIFY=PASS
+B02_HEADLESS_TEST_RESULT=130/130_PASS
+B02_REAL_GTK=PENDING_T480
+B02_PERF_PROBE=PENDING_T480
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+NEXT_ACTION=B02_R1_T480_NONCANDIDATE_QUALIFICATION
+```
+## 40. B02 R1 T480 real-GTK FAIL and failure-specific mature-source audit
+
+R1 T480 evidence:
+
+```text
+B02_HEADLESS_TEST_RESULT=130/130_PASS
+GTK TEST 1/10 view-selection=PASS
+GTK TEST 2/10 window-shell=PASS
+GTK TEST 3/10 library-open=PASS
+GTK TEST 4/10 search-filter=FAIL
+ERR=AssertionError:delivery_count=0
+FINAL_PHASE=B02_REAL_GTK_FAIL
+```
+
+Classification:
+
+```text
+B02_R1=RETIRED_NOT_QUALIFIED
+VALID_GTK_ADAPTER_PRODUCT_DEFECT=YES
+TIMING_ORACLE_DESIGN_DEFECT=YES
+COALESCER_DOMAIN_DEFECT=NO
+CONTROLLER_DEFECT=NO
+LIST_MODEL_DEFECT=NO_EVIDENCE
+ENVIRONMENT_DEFECT=NO_EVIDENCE
+CANDIDATE=NO
+CANDIDATE_ATTEMPTS=0
+```
+
+### 40.1 Comparative direct-source result
+
+The failure-specific audit returned to mature source before repair.
+
+- **Calamus W97 final contract:** `Gtk.SearchEntry.changed` -> one explicit 150 ms `CoalescedQueryDispatcher`; the earlier `search-changed` pattern had already been rejected after delayed-delivery failures.
+- **GNOME Citations:** `GtkSearchEntry` uses immediate `changed`; no second debounce owner.
+- **Mousepad GTK3:** entry text uses immediate `changed`; no second debounce owner.
+- **KBibTeX:** immediate `textChanged` -> one owned single-shot timer.
+- **JabRef:** immediate text property change -> one owned restartable timer.
+
+Convergent rule: **one timing owner only**. When Schedulae wants a 150 ms coalescer, `Gtk.SearchEntry` must feed it from `changed`, not from the already-delayed `search-changed` signal.
+
+### 40.2 R1 oracle defect
+
+R1 checked correctness at one fixed time (`GLib.timeout_add(260, check)`). That oracle is retired. Increasing 260 ms is explicitly forbidden as trial-and-error. The correct oracle is bounded semantic completion: latest query delivered exactly once, dispatcher no longer pending, controller query equals `alpha`, and projection equals the expected row count.
+
+## 41. B02 Implementation R2 — evidence-based repair build
+
+**Implementation:** BUILT / ISOLATED
+**Candidate:** NO
+**Canonical Git mutation:** NO
+**T480 real-GTK qualification:** PENDING
+
+Baseline remains:
+
+```text
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+```
+
+### 41.1 Production delta from R1
+
+Exactly one production behavior change:
+
+```python
+self.search_entry.connect("changed", self._on_search_changed)
+```
+
+No changes to:
+
+- `CoalescedQueryDispatcher`;
+- `DEFAULT_BIBLIOGRAPHY_SEARCH_DELAY_MS = 150`;
+- `ReferenceController`;
+- bibliography filtering semantics;
+- list/selection model;
+- dialog workflows.
+
+### 41.2 Oracle/gate repair
+
+The real-GTK `search-filter` lane now polls boundedly (1.5 s safety ceiling, 10 ms polling cadence) for semantic completion and fails immediately if `delivery_count > 1`. Completion requires:
+
+```text
+delivery_count == 1
+pending == false
+last_delivered_query == "alpha"
+controller.filters.query == "alpha"
+visible_rows == 1
+```
+
+A new headless/source contract requires the exact `changed` binding and forbids `search-changed`. The source verifier also rejects the retired fixed-time `GLib.timeout_add(260, check)` oracle.
+
+### 41.3 Frozen R2 counts
+
+```text
+B01_REGRESSION_TESTS=101
+B02_NEW_HEADLESS_TESTS=30
+HEADLESS_TEST_CASES=131
+FOCUSED_REPAIR_GTK_LANES=1
+FULL_REAL_GTK_LANES=10
+TOTAL_VALIDATION_EXECUTIONS=142
+STARTUP_SAMPLES=5
+```
+
+The focused `search-filter` lane is intentionally executed twice in a successful T480 qualification: first by itself as the failure-specific repair gate, then again inside the full 10-lane regression matrix.
+
+### 41.4 Local non-GTK qualification
+
+```text
+B02_SOURCE_VERIFY=PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+SKIPS=0
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+```
+
+The build environment still lacks PyGObject/GTK3, so no local real-GTK PASS is claimed.
+
+A verifier integration typo (`root` instead of `ROOT`) was caught before package delivery, classified tooling-only, and repaired without product change.
+
+### 41.5 T480 execution order — binding
+
+1. package/canonical/source identity;
+2. GTK3 runtime;
+3. **focused `search-filter` lane only**;
+4. only after focused PASS: 131/131 headless;
+5. full 10/10 real-GTK fresh-process matrix;
+6. measurement-only performance/startup probe;
+7. canonical Git postcheck.
+
+```text
+NEXT_ACTION=B02_R2_T480_NONCANDIDATE_QUALIFICATION
+```
+
+## 41. B02 R2 — T480 non-candidate qualification PASS
+
+Exact B01 canonical repository authority remained unchanged:
+
+```text
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+```
+
+R2 source authority:
+
+```text
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+DOMAIN_MODULES=11
+SHELL_MODULES=5
+APPLICATION_ID=io.github.leviagravia.Schedulae
+GTK_STACK=GTK3_PYGOBJECT
+TOOLBAR=NO
+IMPORT_EXPORT_UI=NO
+```
+
+Validation:
+
+```text
+FOCUSED_REPAIR_GTK_LANES=1
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+
+HEADLESS_TEST_CASES=131
+B01_REGRESSION_TESTS=101
+B02_NEW_HEADLESS_TESTS=30
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+
+B02_REAL_GTK_LANES=10
+B02_REAL_GTK_RESULT=10/10_PASS
+
+STARTUP_SAMPLES=5
+STARTUP_FIRST_MAPPED_MIN_MS=198.645
+STARTUP_FIRST_MAPPED_MEDIAN_MS=210.746
+STARTUP_FIRST_MAPPED_MAX_MS=222.084
+PROJECTION_1000_MS=53.678
+SEARCH_1000_MS=2.459
+THRESHOLD_GATE=NOT_FROZEN_NONCANDIDATE_MEASUREMENT_ONLY
+B02_PERF_PROBE=PASS
+
+BYTECODE_ARTIFACTS=0
+CANDIDATE=NO
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B02_IMPLEMENTATION_R2_T480_PASS
+```
+
+### 41.1 Qualification decision
+
+```text
+B02_R1=RETIRED
+B02_R2=T480_PROVEN_NONCANDIDATE
+PRODUCT_FAIL=NO
+REAL_GTK_FAIL=NO
+PERF_PROBE_FAIL=NO
+CANONICAL_REPO_MUTATION=NO
+CANDIDATE_ATTEMPTS_USED=0
+PUBLICATION=NO
+MANUAL_DESKTOP_VALIDATION=NOT_RUN
+```
+
+The focused failure-specific boundary now passes before the full matrix, proving the R1 `search-filter` defect has been repaired without changing the 150 ms coalescer contract.
+
+### 41.2 Performance-budget rule before Candidate
+
+The T480 values above are measurements, not thresholds. The Candidate budget must be derived explicitly and documented before a Candidate run.
+
+The freeze step must:
+
+1. preserve the measured R2 baseline verbatim;
+2. define a conservative guardrail separately from the observed median/max;
+3. use the guardrail as a regression detector, not as an optimization target;
+4. avoid thresholds tighter than the observed natural spread;
+5. keep projection/search budgets distinct from startup mapping;
+6. require the same measurement fixture and library cardinality as the non-candidate probe;
+7. freeze the exact automated + real-GTK + performance + manual validation sequence before attempt authorization.
+
+No additional feature implementation is allowed in that freeze step.
+
+`NEXT_ACTION = B02_CANDIDATE_PREFLIGHT_AND_PERFORMANCE_BUDGET_FREEZE_AUTHORIZATION_PENDING`
+
+## 42. B02 Candidate preflight and performance-budget methodology freeze
+
+**Status:** CONTRACT FROZEN / T480 PREFLIGHT PENDING  
+**Candidate:** NO  
+**Candidate attempts used:** 0  
+**Product/source mutation:** NO  
+**Git mutation:** NO
+
+Exact R2 authority:
+
+```text
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+```
+
+### 42.1 Candidate automated sequence — FROZEN
+
+```text
+1 focused repaired search-filter GTK lane
+131 headless tests
+10 full real-GTK fresh-process lanes
+performance budget gate
+```
+
+Automated validation-unit count:
+
+```text
+1 + 131 + 10 = 142
+```
+
+The focused lane is intentionally repeated inside the 10-lane full matrix.
+
+### 42.2 Candidate manual sequence — FROZEN
+
+Exactly **12** desktop tests, delivered by terminal runner in **4 batches of 3**:
+
+```text
+Batch 1: New Library / Open Library / Search + filters
+Batch 2: Selection + detail / New Reference / Edit Reference
+Batch 3: Duplicate / Delete / malformed read-only
+Batch 4: stale conflict / About + Quit / visual light-system check
+```
+
+The terminal runner must stop immediately on a reported FAIL. Candidate manual validation is not started until all automated/performance gates pass.
+
+### 42.3 Second performance distribution — FROZEN
+
+Preflight collects, without changing product source:
+
+- 9 additional fresh-process startup -> first-mapped samples;
+- 9 additional projection-1000 samples;
+- 9 additional search-1000 samples.
+
+The R2 observed baseline is preserved verbatim:
+
+```text
+startup: 198.645, 217.372, 209.828, 222.084, 210.746 ms
+projection_1000: 53.678 ms
+search_1000: 2.459 ms
+```
+
+Projection/search sampling uses the same deterministic 1,000-record fixture and same query (`Title 999`) as R2.
+
+### 42.4 Numeric budget formula — FROZEN
+
+For each metric after T480 preflight:
+
+```text
+combined = R2 baseline samples + preflight samples
+median   = median(combined)
+MAD      = median(abs(sample - median))
+raw      = max(max(combined) * 1.10, median + 6 * MAD)
+```
+
+Rounding:
+
+```text
+startup:         ceil upward to 5 ms
+projection_1000: ceil upward to 5 ms
+search_1000:     ceil upward to 0.5 ms
+```
+
+The 10% guardband is a same-machine measurement-noise allowance. It is not a feature target and must not be tightened merely to make a benchmark look better.
+
+If preflight evidence is internally pathological or inconsistent with the fixed fixture, the budget is **not** frozen by guessing or rerunning with looser limits; the run is classified and audited first.
+
+### 42.5 Preflight execution
+
+The preflight itself is NON-CANDIDATE and repeats the exact R2 verification sequence before collecting the second distribution:
+
+```text
+source/package/canonical identity
+focused search-filter
+131 headless
+10 real-GTK
+9 startup samples
+9 projection/search samples
+canonical Git postcheck
+```
+
+No commit/push and no product mutation.
+
+A successful T480 preflight must end with:
+
+```text
+B02_CANDIDATE_PREFLIGHT=PASS
+BUDGET_FREEZE_INPUT=READY
+CANDIDATE=NO
+CANDIDATE_ATTEMPTS_USED=0
+CANONICAL_REPO_MUTATION=NO
+```
+
+Only after that output may the numeric budgets be calculated using section 42.4 and frozen into the Candidate contract.
+
+`NEXT_ACTION = B02_CANDIDATE_PREFLIGHT_T480_RUN`
+
+## 43. B02 Candidate preflight T480 PASS and numeric budget freeze
+
+The user executed the preflight on the Lenovo ThinkPad T480.
+
+Validation before performance sampling:
+
+```text
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_CANDIDATE_PREFLIGHT=PASS
+AUTOMATED_VALIDATION_UNITS=142
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+CANDIDATE=NO
+CANDIDATE_ATTEMPTS_USED=0
+BYTECODE_ARTIFACTS=0
+```
+
+Second T480 distribution:
+
+```text
+PREFLIGHT_STARTUP_SAMPLES=9
+startup_ms =
+197.455
+209.735
+213.028
+207.727
+216.885
+211.324
+210.712
+212.766
+215.095
+
+PREFLIGHT_PROJECTION_SEARCH_SAMPLES=9
+projection_1000_ms =
+50.074
+48.944
+47.540
+50.397
+54.744
+47.814
+48.326
+49.058
+47.250
+
+search_1000_ms =
+2.052
+2.188
+2.043
+2.353
+2.326
+2.104
+2.005
+2.142
+2.026
+```
+
+Combined statistics reported by the frozen preflight runner:
+
+```text
+COMBINED_STARTUP_N=14
+COMBINED_STARTUP_MEDIAN_MS=211.035
+COMBINED_STARTUP_MAD_MS=2.650
+COMBINED_STARTUP_MAX_MS=222.084
+STARTUP_GUARDRAIL_RAW_MS=244.292
+STARTUP_GUARDRAIL_RECOMMENDED_MS=245.000
+
+COMBINED_PROJECTION_N=10
+COMBINED_PROJECTION_MEDIAN_MS=49.001
+COMBINED_PROJECTION_MAD_MS=1.291
+COMBINED_PROJECTION_MAX_MS=54.744
+PROJECTION_GUARDRAIL_RAW_MS=60.218
+PROJECTION_GUARDRAIL_RECOMMENDED_MS=65.000
+
+COMBINED_SEARCH_N=10
+COMBINED_SEARCH_MEDIAN_MS=2.123
+COMBINED_SEARCH_MAD_MS=0.089
+COMBINED_SEARCH_MAX_MS=2.459
+SEARCH_GUARDRAIL_RAW_MS=2.705
+SEARCH_GUARDRAIL_RECOMMENDED_MS=3.000
+```
+
+The methodology frozen before the run was:
+
+```text
+raw_guardrail = max(combined_max*1.10, combined_median + 6*MAD)
+startup/projection -> round upward to 5 ms
+search             -> round upward to 0.5 ms
+```
+
+Therefore the exact B02 Candidate performance budget is now FROZEN:
+
+```text
+STARTUP_FIRST_MAPPED_MAX_MS=245.000
+PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MAX_MS=3.000
+```
+
+### 43.1 Candidate validation contract — FINAL FROZEN
+
+Exact source authority:
+
+```text
+R2_SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+```
+
+Automated order:
+
+```text
+1. package/source/canonical identity
+2. focused repaired search-filter fresh-process lane
+3. 131 headless tests
+4. full 10-lane real-GTK matrix
+5. performance gate:
+   startup first-mapped <= 245.000 ms
+   projection-1000     <= 65.000 ms
+   search-1000         <= 3.000 ms
+6. canonical Git postcheck
+```
+
+Automated validation units:
+
+```text
+1 + 131 + 10 = 142
+```
+
+Performance samples are measurement gates and do not inflate the validation-unit count.
+
+Manual desktop validation after automated PASS:
+
+```text
+12 tests total
+4 batches of 3
+terminal-delivered
+STOP immediately on first FAIL
+```
+
+No feature change is permitted between this freeze and Candidate build. Any source delta beyond packaging/runner/oracle material invalidates the Candidate lineage and requires requalification.
+
+### 43.2 Status
+
+```text
+B02_CANDIDATE_PREFLIGHT=PASS
+B02_NUMERIC_PERFORMANCE_BUDGET=FROZEN
+B02_CANDIDATE_CONTRACT=FROZEN
+B02_CANDIDATE=NOT_OPENED
+CANDIDATE_ATTEMPTS_USED=0
+PRODUCT_SOURCE_MUTATION=NO
+GIT_MUTATION=NO
+```
+
+`NEXT_ACTION = B02_CANDIDATE_R1_AUTHORIZATION_PENDING`
+
+## 44. B02 Candidate R1 — exact build and validation contract
+
+**Status:** BUILT / T480 AUTOMATED PENDING  
+**Product source delta from R2:** NONE  
+**Git mutation:** NO
+
+Exact product source authority:
+
+```text
+R2_SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+```
+
+Frozen Candidate performance budget:
+
+```text
+STARTUP_FIRST_MAPPED_MAX_MS=245.000
+PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MAX_MS=3.000
+```
+
+Automated Candidate sequence:
+
+```text
+preconditions/package/source/canonical identity
+CANDIDATE_ATTEMPT_STARTED=1
+1 focused search-filter fresh-process lane
+131 headless tests
+10 full real-GTK fresh-process lanes
+5 startup fresh-process samples + 1000-record projection/search
+hard performance comparison against frozen budget
+canonical Git postcheck
+```
+
+Validation-unit count remains:
+
+```text
+1 + 131 + 10 = 142
+```
+
+Performance measurements are gates but do not inflate this count.
+
+Automated PASS yields:
+
+```text
+B02_CANDIDATE_R1_AUTOMATED=PASS
+CANDIDATE_ATTEMPT_USED=1
+MANUAL_DESKTOP_VALIDATION=PENDING
+```
+
+Only then may the separate manual runner execute exactly 12 tests, four batches of three, stopping on the first reported FAIL.
+
+Manual tests:
+
+```text
+1  New Library
+2  Open Library
+3  Search and filters
+4  Selection and detail
+5  New Reference
+6  Edit Reference
+7  Duplicate Reference
+8  Delete Reference
+9  Malformed library read-only
+10 Stale conflict Reload / Overwrite / Cancel
+11 About and Quit
+12 Visual light/system readability
+```
+
+No source repair is allowed inside Candidate R1. Any Candidate product FAIL retires R1 before any repair analysis.
+
+`NEXT_ACTION = B02_CANDIDATE_R1_T480_AUTOMATED_RUN`
+
+### 44.1 Candidate R1 pre-delivery harness/fixture requalification
+
+Before T480 delivery, two Candidate-package defects were detected:
+
+```text
+DEFECT_1=AUTOMATED_RUNNER_PRECONDITION_CONTROL_FLOW
+CLASSIFICATION=PACKAGING_HARNESS
+PRODUCT_SOURCE_MUTATION=NO
+ATTEMPT_CONSUMED=NO
+
+DEFECT_2=MANUAL_LIBRARY_FIXTURE_NONCANONICAL_FIELD_PREFIX
+CLASSIFICATION=MANUAL_ORACLE_FIXTURE
+PRODUCT_SOURCE_MUTATION=NO
+ATTEMPT_CONSUMED=NO
+```
+
+Repairs:
+
+- GTK-runtime/package preconditions now route through the explicit fail-visible precondition classifier and report `CANDIDATE_ATTEMPT_USED=0`;
+- manual valid-library fixture uses canonical `Type:`, `Author:`, `Title:`, `Year:`, `Tags:` and `Related Keys:` fields;
+- stale-conflict helper appends a canonical valid record.
+
+Fresh checks:
+
+```text
+FRESH_PACKAGE_VERIFY=PASS
+B02_SOURCE_VERIFY=PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+RUNNER_SYNTAX=PASS
+PERF_GATE_SYNTHETIC_PASS_FAIL=PASS
+PRECONDITION_ATTEMPT_ACCOUNTING=PASS
+MANUAL_VALID_FIXTURE_RECORDS=3
+MANUAL_VALID_FIXTURE_DIAGNOSTICS=0
+STALE_HELPER_RECORDS=4
+STALE_HELPER_DIAGNOSTICS=0
+PRODUCT_SOURCE_DELTA_FROM_R2=NONE
+CANDIDATE_ATTEMPT_USED=0_BEFORE_T480_RUN
+```
+
+No T480 Candidate run has occurred yet.
+
+### 44.2 Candidate R1 pre-delivery bytecode contamination catch
+
+A final fresh-extraction audit detected staging-only Python bytecode created by the fixture-validation import:
+
+```text
+CLASSIFICATION=PACKAGING_CLEANLINESS
+PRODUCT_DEFECT=NO
+PRODUCT_SOURCE_MUTATION=NO
+T480_CANDIDATE_RUN=NOT_STARTED
+CANDIDATE_ATTEMPT_USED=0
+```
+
+The staging bytecode was removed and the package was rebuilt. Final delivery requires `BYTECODE_ARTIFACTS=0` on the exact ZIP.
+
+## 45. B02 Candidate R1 — automated T480 PASS / manual authorization
+
+The user executed the automated Candidate R1 runner on T480.
+
+```text
+B02_CANDIDATE_R1_AUTOMATED=PASS
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_CANDIDATE_PERF_GATE=PASS
+AUTOMATED_VALIDATION_UNITS=142
+CANDIDATE_ATTEMPT_USED=1
+MANUAL_DESKTOP_VALIDATION=PENDING
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+CANONICAL_HEAD=3e0010a0679e9ba4e541e6fa854186806f83a08a
+CANONICAL_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+BYTECODE_ARTIFACTS=0
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B02_CANDIDATE_R1_AUTOMATED_PASS_MANUAL_PENDING
+```
+
+Candidate performance measurements:
+
+```text
+STARTUP_FIRST_MAPPED_MAX_MS=215.097
+FROZEN_STARTUP_MAX_MS=245.000
+PROJECTION_1000_MS=52.851
+FROZEN_PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MS=2.076
+FROZEN_SEARCH_1000_MAX_MS=3.000
+```
+
+Decision:
+
+- automated qualification is complete and valid;
+- Candidate attempt 1 is already consumed;
+- the manual validation is continuation of the same Candidate R1 attempt, not a second attempt;
+- manual scope remains exactly 12 tests in 4 terminal batches of 3;
+- stop immediately on first reported FAIL;
+- no source repair, commit, or push during manual validation.
+
+`NEXT_ACTION = B02_CANDIDATE_R1_T480_MANUAL_RUN`
+## 46. B02 Candidate R1 manual T480 PASS / publication authorization
+
+```text
+B02_CANDIDATE_R1_AUTOMATED=PASS
+AUTOMATED_VALIDATION_UNITS=142
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_CANDIDATE_PERF_GATE=PASS
+STARTUP_MAX_MEASURED_MS=215.097
+STARTUP_MAX_FROZEN_MS=245.000
+PROJECTION_1000_MEASURED_MS=52.851
+PROJECTION_1000_FROZEN_MS=65.000
+SEARCH_1000_MEASURED_MS=2.076
+SEARCH_1000_FROZEN_MS=3.000
+
+B02_CANDIDATE_R1_MANUAL=PASS
+MANUAL_DESKTOP_RESULT=12/12_PASS
+MALFORMED_FILE_BYTES_UNCHANGED=YES
+CANDIDATE_ATTEMPT_USED=1
+B02_CANDIDATE_R1=DESKTOP_CERTIFIED_PUBLICATION_READY
+CANONICAL_REPO_MUTATION=NO
+GIT_COMMIT_PUSH=NO
+```
+
+All twelve manual tests have explicit user PASS verdicts and are final for B02. They must not be repeated merely because future harness wording is improved.
+
+### 46.1 Future desktop-validation harness rule
+
+From B03 onward every manual desktop test must be operationally click-by-click. Each test must state:
+
+1. exact starting state and fixture;
+2. exact menu/button/widget sequence;
+3. exact text/path/value to enter;
+4. exact visible or persisted result to inspect;
+5. one unambiguous PASS criterion;
+6. one unambiguous FAIL criterion;
+7. exact terminal helper command when external mutation is required;
+8. STOP-on-FAIL instruction.
+
+Broad instructions such as “exercise the workflow” or “visual check” are forbidden for future Candidate certification. A manual runner must explicitly manage or announce application startup before soliciting a verdict.
+
+This is a methodology/harness debt only; it does not invalidate B02 Candidate R1.
+
+### 46.2 B02 Publication P1 contract
+
+Publication is authorized from the exact certified source authority:
+
+```text
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+EXPECTED_PARENT=3e0010a0679e9ba4e541e6fa854186806f83a08a
+EXPECTED_PARENT_TREE=a03cb52013e6acef4233b4c5a5b00995d50ac40f
+COMMIT_SUBJECT=B02: add native GTK shell
+AUTOMATED_VALIDATION_UNITS=142
+STARTUP_FIRST_MAPPED_MAX_MS=245.000
+PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MAX_MS=3.000
+```
+
+Publication P1 must re-run source verification, focused GTK, 131 headless, 10 full real-GTK and frozen performance gates on the canonical worktree before stage/commit/push. It must verify the real remote after push and leave the worktree CLEAN.
+
+B03 remains NOT OPENED.
+
+`NEXT_ACTION = B02_PUBLICATION_P1_T480_RUN`
+### 46.3 Publication P1 pre-delivery packaging repair
+
+A final package audit caught a publication-tool path defect before T480 execution: the copied performance gate still looked for the Candidate topology `ROOT/SOURCE`, while the publication package exposes the certified source directly at its root.
+
+```text
+CLASSIFICATION=PUBLICATION_PACKAGING_TOOLING
+PRODUCT_DEFECT=NO
+PRODUCT_SOURCE_MUTATION=NO
+GIT_MUTATION=NO
+T480_PUBLICATION_RUN=NOT_STARTED
+REPAIR=PERFORMANCE_GATE_SOURCE_ROOT
+```
+
+The publication performance gate now points to the package root and emits publication-specific PASS/FAIL markers. The exact final publication ZIP was fresh-extracted, package-manifest verified, B02 source-verified, headless 131/131 requalified, and its frozen-budget PASS/FAIL logic was synthetically checked.
+

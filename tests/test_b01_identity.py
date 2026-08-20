@@ -13,8 +13,15 @@ from schedulae.reference_store import MarkdownReferenceStore, parse_references_m
 class B01IdentityTests(unittest.TestCase):
     def test_package_contains_eleven_domain_modules_and_no_calamus_runtime_module(self):
         package = Path(schedulae.__file__).parent
-        names = sorted(p.name for p in package.glob("*.py") if p.name != "__init__.py")
-        self.assertEqual(len(names), 11)
+        domain = {
+            "bibliography.py", "bibliography_search.py", "bibtex.py",
+            "bibtex_controller.py", "bibtex_import_session.py", "citations.py",
+            "reference_controller.py", "reference_store.py", "references.py",
+            "related_references.py", "research_file.py",
+        }
+        self.assertEqual(len(domain), 11)
+        self.assertTrue(all((package / name).is_file() for name in domain))
+        names = sorted(p.name for p in package.glob("*.py"))
         self.assertFalse(any(name.startswith("calamus_") for name in names))
 
     def test_runtime_package_has_no_calamus_import_dependency(self):

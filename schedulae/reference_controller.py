@@ -104,6 +104,15 @@ class ReferenceController:
     def selected_key(self) -> str | None:
         return self._selected_key
 
+    @property
+    def read_only(self) -> bool:
+        """Whether the active library has blocking load diagnostics."""
+        return bool(self._diagnostics)
+
+    @property
+    def diagnostics(self) -> tuple[Any, ...]:
+        return self._diagnostics
+
 
     def set_filters(self, **changes: str) -> tuple[ReferenceRecord, ...]:
         values = {
@@ -137,6 +146,8 @@ class ReferenceController:
         if self._selected_key not in visible_keys:
             self._selected_key = visible[0].key if visible else None
         status = self._status_text(len(visible))
+        if hasattr(self._view, "set_context"):
+            self._view.set_context(self._context)
         self._view.render(visible, self._selected_key, status)
         self.refresh_detail()
         return visible

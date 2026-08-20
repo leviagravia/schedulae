@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import errno
 import os
 from typing import Any
 
@@ -277,3 +278,26 @@ class MarkdownReferenceStore:
             return ReferenceSaveResult("conflict", error.token, "Reference library changed during save.")
         except OSError as error:
             return ReferenceSaveResult("error", current, str(error))
+
+
+def create_empty_reference_library(path: str) -> str:
+    """Create one explicit empty References v1 library and return its frozen path.
+
+    Creation is fail-closed: an existing filesystem object at the selected path
+    is never overwritten, and publication uses the same guarded atomic writer as
+    normal reference-library saves.
+    """
+    if not isinstance(path, str):
+        raise TypeError("reference library path must be a string")
+    selected = path.strip()
+    if not selected:
+        raise ValueError("reference library path is required")
+    selected_path = os.path.abspath(os.path.expanduser(selected))
+    if os.path.lexists(selected_path):
+        raise FileExistsError(errno.EEXIST, "reference library already exists", selected_path)
+    atomic_write_utf8(
+        selected_path,
+        serialize_references_markdown(()),
+        expected_token=FileToken(False),
+    )
+    return os.path.realpath(selected_path)

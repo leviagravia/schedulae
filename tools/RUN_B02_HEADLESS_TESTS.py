@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, sys, unittest
 from pathlib import Path
 sys.dont_write_bytecode = True
-EXPECTED = 101
+EXPECTED = 131
 
 def flatten(suite):
     out=[]
@@ -27,20 +27,23 @@ def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--root',default='.')
     ns=ap.parse_args(); root=Path(ns.root).resolve(); tests=root/'tests'; package=root/'schedulae'
     if not package.is_dir() or not tests.is_dir():
-        print('B01_TEST_RUN=FAIL'); print('ERR=missing_schedulae_or_tests'); print('FINAL_PHASE=B01_TEST_SETUP_FAIL'); return 2
+        print('B02_HEADLESS_TEST_RUN=FAIL'); print('ERR=missing_schedulae_or_tests'); print('FINAL_PHASE=B02_HEADLESS_TEST_SETUP_FAIL'); return 2
     sys.path.insert(0,str(root))
     suite=unittest.defaultTestLoader.discover(str(tests),pattern='test_*.py')
-    flat=[test for test in flatten(suite) if not test.id().split(".", 1)[0].startswith("test_b02_")]
+    flat=flatten(suite)
     total=len(flat)
+    b02_new=sum(test.id().split(".", 1)[0].startswith("test_b02_") for test in flat)
+    b01_regression=total-b02_new
     print(f'TOTAL_TESTS={total}'); print(f'EXPECTED_TESTS={EXPECTED}')
-    if total!=EXPECTED:
-        print('B01_TEST_RUN=FAIL'); print(f'ERR=unexpected_test_count:{total}'); print('FINAL_PHASE=B01_TEST_COUNT_FAIL'); return 3
+    print(f'B01_REGRESSION_TESTS={b01_regression}'); print(f'B02_NEW_HEADLESS_TESTS={b02_new}')
+    if total!=EXPECTED or b01_regression!=101 or b02_new!=30:
+        print('B02_HEADLESS_TEST_RUN=FAIL'); print(f'ERR=unexpected_test_count:{total}'); print('FINAL_PHASE=B02_HEADLESS_TEST_COUNT_FAIL'); return 3
     result=ProgressRunner(stream=sys.stdout,verbosity=0,total=total).run(unittest.TestSuite(flat))
     passed=total-len(result.failures)-len(result.errors)-len(result.skipped)
-    print(f'B01_TEST_TOTAL={total}')
-    print(f'B01_TEST_RESULT={passed}/{total}_PASS' if result.wasSuccessful() and not result.skipped else f'B01_TEST_RESULT={passed}/{total}_NOT_FULL_PASS')
+    print(f'B02_HEADLESS_TEST_TOTAL={total}')
+    print(f'B02_HEADLESS_TEST_RESULT={passed}/{total}_PASS' if result.wasSuccessful() and not result.skipped else f'B02_HEADLESS_TEST_RESULT={passed}/{total}_NOT_FULL_PASS')
     print(f'SKIPS={len(result.skipped)}')
     if result.wasSuccessful() and not result.skipped and passed==EXPECTED:
-        print('EXIT=0'); print('ERR=NONE'); print('FINAL_PHASE=B01_HEADLESS_TESTS_PASS'); return 0
-    print('EXIT=1'); print(f'ERR=failures:{len(result.failures)} errors:{len(result.errors)} skips:{len(result.skipped)}'); print('FINAL_PHASE=B01_HEADLESS_TESTS_FAIL'); return 1
+        print('EXIT=0'); print('ERR=NONE'); print('FINAL_PHASE=B02_HEADLESS_TESTS_PASS'); return 0
+    print('EXIT=1'); print(f'ERR=failures:{len(result.failures)} errors:{len(result.errors)} skips:{len(result.skipped)}'); print('FINAL_PHASE=B02_HEADLESS_TESTS_FAIL'); return 1
 if __name__=='__main__': raise SystemExit(main())
