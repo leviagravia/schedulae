@@ -1,9 +1,9 @@
 # Schedulae — Autorità tecnica, architettura, validazione e roadmap
 
 **Documento canonico 2 di 3**  
-**Versione:** 3.1  
-**Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00/B01 CLOSED / B02 R1 RETIRED / B02 R2 T480 PROVEN NON-CANDIDATE / CANDIDATE PREFLIGHT PASS / PERF BUDGET FROZEN / B02 CANDIDATE R1 BUILT / T480 PENDING  
+**Versione:** 3.3
+**Data:** 20 agosto 2026
+**Stato:** AUTHORITATIVE — B00/B01 CLOSED / PUBLISHED / DOCUMENTATION FINALIZED — B02 CLOSED / T480 DESKTOP CERTIFIED / PUBLISHED P1 / DOCUMENTATION FINALIZER P2 AUTHORIZED / T480 PENDING — B03 NOT OPENED
 **Scopo:** raccogliere in un'unica autorità tutto ciò che serve per costruire, verificare e far evolvere Schedulae senza dover ricostruire il contesto da Calamus o da documenti storici separati.
 
 ## 1. Source authority
@@ -2982,3 +2982,80 @@ REPAIR=PERFORMANCE_GATE_SOURCE_ROOT
 
 The publication performance gate now points to the package root and emits publication-specific PASS/FAIL markers. The exact final publication ZIP was fresh-extracted, package-manifest verified, B02 source-verified, headless 131/131 requalified, and its frozen-budget PASS/FAIL logic was synthetically checked.
 
+## 46. B02 Publication P1 — T480 PASS
+
+Canonical publication receipt:
+
+```text
+B02_PUBLICATION_P1=PASS
+AUTOMATED_VALIDATION_UNITS=142
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_PUBLICATION_PERF_GATE=PASS
+
+STARTUP_FIRST_MAPPED_MAX_MS=221.400
+FROZEN_STARTUP_MAX_MS=245.000
+PROJECTION_1000_MS=54.146
+FROZEN_PROJECTION_1000_MAX_MS=65.000
+SEARCH_1000_MS=2.492
+FROZEN_SEARCH_1000_MAX_MS=3.000
+
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+PARENT_COMMIT=3e0010a0679e9ba4e541e6fa854186806f83a08a
+B02_PRODUCT_COMMIT=b35c9969c574cc366bb8318a6da16397c38b8009
+B02_PRODUCT_TREE=f06418a99f790d3dc6e265d14395457fa050686c
+HEAD=b35c9969c574cc366bb8318a6da16397c38b8009
+ORIGIN_MAIN=b35c9969c574cc366bb8318a6da16397c38b8009
+REMOTE_MAIN=b35c9969c574cc366bb8318a6da16397c38b8009
+REMOTE_URL=https://github.com/leviagravia/schedulae.git
+WORKTREE=CLEAN
+CANONICAL_DOCUMENTS=3
+CANDIDATE_ATTEMPT_USED=1
+B02_MANUAL_DESKTOP_RESULT=12/12_PASS
+B03=NOT_OPENED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B02_PUBLICATION_P1_PASS
+```
+
+### 46.1 Authority distinction
+
+```text
+B02_PRODUCT_SOURCE_AUTHORITY_COMMIT=b35c9969c574cc366bb8318a6da16397c38b8009
+B02_PRODUCT_SOURCE_AUTHORITY_TREE=f06418a99f790d3dc6e265d14395457fa050686c
+B02_SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+```
+
+The earlier commit `3e0010a0679e9ba4e541e6fa854186806f83a08a` / tree `a03cb52013e6acef4233b4c5a5b00995d50ac40f` remains the B01 documentation-finalized parent.
+
+### 46.2 B02 P2 documentation finalizer — authorized contract
+
+The user explicitly authorized the exact next step on 20 August 2026. P2 is a **documentation-only finalizer**, not a Candidate attempt, and B03 remains unopened.
+
+Exact parent authority:
+
+```text
+B02_PRODUCT_COMMIT=b35c9969c574cc366bb8318a6da16397c38b8009
+B02_PRODUCT_TREE=f06418a99f790d3dc6e265d14395457fa050686c
+B02_SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+REMOTE=https://github.com/leviagravia/schedulae.git
+```
+
+P2 contract:
+
+- only the three canonical Markdown documents may change;
+- all product source, tests, tools, provenance, `LICENSE`, `.gitignore`, and `PROJECT_IDENTITY.toml` remain byte-identical to the published B02 product tree;
+- `tools/VERIFY_B02_SOURCE.py` must PASS before and after the document update;
+- exactly 131 B02 headless tests must PASS before and 131 after the document update: **262 test executions** total;
+- commit subject: `docs: finalize B02 publication receipt`;
+- push only after the mutation-scope gate proves that exactly the three canonical Markdown files changed and no untracked paths exist;
+- after push require `HEAD = origin/main = real remote main`, CLEAN worktree, and exact parent `b35c9969c574cc366bb8318a6da16397c38b8009`;
+- B02 manual desktop validation remains final at **12/12 PASS** and must not be repeated;
+- B03 remains **NOT OPENED** until P2 PASS.
+
+The B02 product-source authority remains commit `b35c9969c574cc366bb8318a6da16397c38b8009` / tree `f06418a99f790d3dc6e265d14395457fa050686c`. P2 synchronizes documentation only and does not redefine the certified product tree. No P3 shall be created merely to insert P2's own commit hash.
+
+After P2 PASS the external receipt/handover may advance to `NEXT_ACTION = B03_DIRECT_SOURCE_AUDIT_AUTHORIZATION_PENDING`.
+
+`NEXT_ACTION = RUN_B02_P2_DOCUMENTATION_FINALIZER_ON_T480`

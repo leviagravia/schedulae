@@ -1,9 +1,9 @@
 # Schedulae — Identità, prodotto e governance
 
 **Documento canonico 1 di 3**  
-**Versione:** 3.1  
-**Data:** 19 agosto 2026  
-**Stato:** AUTHORITATIVE — B00/B01 CLOSED / B02 R1 RETIRED / B02 R2 T480 PROVEN NON-CANDIDATE / CANDIDATE PREFLIGHT PASS / PERF BUDGET FROZEN / B02 CANDIDATE R1 BUILT / T480 PENDING  
+**Versione:** 3.3
+**Data:** 20 agosto 2026
+**Stato:** AUTHORITATIVE — B00/B01 CLOSED / PUBLISHED / DOCUMENTATION FINALIZED — B02 CLOSED / T480 DESKTOP CERTIFIED / PUBLISHED P1 / DOCUMENTATION FINALIZER P2 AUTHORIZED / T480 PENDING — B03 NOT OPENED
 **Regola documentale:** Schedulae ammette al massimo tre documenti canonici di progetto. Questo documento assorbe in futuro tutte le modifiche riguardanti identità, scopo, principi di prodotto, compatibilità, anti-bloat e governance generale. Non creare documenti paralleli.
 
 ## 1. Identità del prodotto
@@ -603,3 +603,43 @@ Open harness debt for future work only: manual validation instructions from B03 
 
 B02 Publication P1 is authorized.
 
+## 13.9 B02 — publication P1 completed
+
+B02 Candidate R1 manual validation was final at **12/12 PASS** and was not repeated during publication.
+
+Publication P1 on the canonical T480 repository:
+
+```text
+B02_PUBLICATION_P1=PASS
+AUTOMATED_VALIDATION_UNITS=142
+B02_R2_FOCUSED_BOUNDARY_RESULT=1/1_PASS
+B02_HEADLESS_TEST_RESULT=131/131_PASS
+B02_REAL_GTK_RESULT=10/10_PASS
+B02_PUBLICATION_PERF_GATE=PASS
+SOURCE_MANIFEST_SHA256=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+PARENT_COMMIT=3e0010a0679e9ba4e541e6fa854186806f83a08a
+B02_PRODUCT_COMMIT=b35c9969c574cc366bb8318a6da16397c38b8009
+B02_PRODUCT_TREE=f06418a99f790d3dc6e265d14395457fa050686c
+HEAD=b35c9969c574cc366bb8318a6da16397c38b8009
+ORIGIN_MAIN=b35c9969c574cc366bb8318a6da16397c38b8009
+REMOTE_MAIN=b35c9969c574cc366bb8318a6da16397c38b8009
+REMOTE_URL=https://github.com/leviagravia/schedulae.git
+WORKTREE=CLEAN
+CANONICAL_DOCUMENTS=3
+CANDIDATE_ATTEMPT_USED=1
+B02_MANUAL_DESKTOP_RESULT=12/12_PASS
+B03=NOT_OPENED
+EXIT=0
+ERR=NONE
+FINAL_PHASE=SCHEDULAE_B02_PUBLICATION_P1_PASS
+```
+
+The B02 product-source authority is now:
+
+```text
+commit=b35c9969c574cc366bb8318a6da16397c38b8009
+tree=f06418a99f790d3dc6e265d14395457fa050686c
+source_manifest=bd6f934e4b9d2cb91c1539eb8a273e9315bdbc3d6e91168074bb6274eedae018
+```
+
+B02 product publication is complete. The documentation-only P2 finalizer is explicitly authorized and ready for T480 execution. B03 remains unopened until P2 PASS. P2 must not modify product source, tests, tools, provenance, license, identity, or `.gitignore`.
